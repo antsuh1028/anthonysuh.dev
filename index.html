@@ -1,2163 +1,297 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <link rel="icon" type="image/png" href="/as.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anthony Suh - Portfolio</title>
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #f4f4f4;
-        background: linear-gradient(135deg, #2b2f38, #3a3f48);
-        background-attachment: fixed;
-        position: relative;
-        overflow-x: hidden;
-      }
-
-      /* Starry background */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(
-            2px 2px at 20px 30px,
-            rgba(255, 255, 255, 0.8),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 40px 70px,
-            rgba(255, 255, 255, 0.6),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 90px 40px,
-            rgba(255, 255, 255, 0.9),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 130px 80px,
-            rgba(255, 255, 255, 0.4),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 160px 30px,
-            rgba(255, 255, 255, 0.7),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 200px 100px,
-            rgba(255, 255, 255, 0.5),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 240px 50px,
-            rgba(255, 255, 255, 0.8),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 280px 90px,
-            rgba(255, 255, 255, 0.6),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 320px 20px,
-            rgba(255, 255, 255, 0.9),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 360px 110px,
-            rgba(255, 255, 255, 0.4),
-            transparent
-          );
-        background-repeat: repeat;
-        background-size: 400px 150px;
-        z-index: -2;
-        animation: twinkle 4s ease-in-out infinite alternate;
-      }
-
-      body::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(
-            1px 1px at 50px 60px,
-            rgba(255, 255, 255, 0.3),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 120px 10px,
-            rgba(255, 255, 255, 0.7),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 180px 120px,
-            rgba(255, 255, 255, 0.5),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 250px 40px,
-            rgba(255, 255, 255, 0.8),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 300px 140px,
-            rgba(255, 255, 255, 0.4),
-            transparent
-          ),
-          radial-gradient(
-            1px 1px at 80px 100px,
-            rgba(255, 255, 255, 0.6),
-            transparent
-          );
-        background-repeat: repeat;
-        background-size: 380px 160px;
-        z-index: -1;
-        animation: twinkle 6s ease-in-out infinite alternate-reverse;
-      }
-
-      @keyframes twinkle {
-        0% {
-          opacity: 0.3;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-      /* Cursor trail effect */
-      .trail-dot {
-        position: fixed;
-        width: 8px;
-        height: 8px;
-        background: radial-gradient(
-          circle,
-          rgba(255, 234, 117, 0.8) 0%,
-          transparent 70%
-        );
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: -1;
-        transform: translate(-30%, -30%);
-        transition: opacity 0.4s ease;
-        box-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
-      }
-
-      @keyframes pulse-shine {
-        0%,
-        100% {
-          transform: translate(-50%, -50%) scale(1);
-          opacity: 0.3;
-        }
-        50% {
-          transform: translate(-50%, -50%) scale(1.2);
-          opacity: 0.6;
-        }
-      }
-
-      /* Header */
-      header {
-        position: fixed;
-        width: 65%;
-        left: 17.5%;
-        top: 0;
-        padding-left: 20px;
-        padding-right: 20px;
-        background: rgba(255, 255, 255, 0.25) !important;
-        backdrop-filter: blur(15px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        z-index: 1000;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-        margin-top: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-
-      /* Enhanced scroll effect */
-      .header-scrolled {
-        background: rgba(255, 255, 255, 0.25) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
-      }
-
-      .header-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1.2rem 0;
-        max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-      }
-
-      .logo {
-        position: absolute;
-        left: 2rem;
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #87ceeb;
-        text-decoration: none;
-        transition: all 0.3s ease;
-      }
-
-      .logo:hover {
-        color: #5dade2;
-        transform: scale(1.05);
-      }
-
-      nav ul {
-        display: flex;
-        list-style: none;
-        gap: 3.5rem;
-        margin: 0;
-        padding: 0;
-      }
-
-      nav a {
-        text-decoration: none;
-        color: #000000;
-        font-weight: 500;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        position: relative;
-        padding: 0.5rem 1rem;
-        border-radius: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 40px;
-      }
-
-      nav a:hover {
-        color: #87ceeb;
-        background: rgba(135, 206, 235, 0.1);
-        transform: translateY(-2px);
-      }
-
-      nav a.active {
-        color: #87ceeb;
-        background: rgba(135, 206, 235, 0.15);
-      }
-
-      /* Hide header on mobile */
-      @media (max-width: 768px) {
-        header {
-          display: none;
-        }
-      }
-
-      .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-        background: transparent !important;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-          transform: translateY(-20px) rotate(180deg);
-        }
-      }
-
-      .hero-content {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 4rem clamp(2rem, 12vw, 20rem); /* Increased max padding */
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      }
-
-      .hero-text {
-        /* padding-left: 30%; */
-        animation: slideInLeft 1s ease-out;
-      }
-
-      @keyframes slideInLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      .name-with-shark {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      .name-with-shark h1 {
-        font-size: 3.5rem;
-        font-weight: bold;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      }
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateY(0);
-        }
-        40% {
-          transform: translateY(-10px);
-        }
-        60% {
-          transform: translateY(-5px);
-        }
-      }
-
-      /* Enhanced Typewriter Effect */
-      .dynamic-text {
-        font-size: 1.8rem;
-        color: #ffeb3b;
-        margin-bottom: 1rem;
-        height: 50px;
-        display: flex;
-        align-items: center;
-      }
-
-      .typewriter {
-        border-right: 3px solid #ffeb3b;
-        animation: blink 1s infinite;
-      }
-
-      @keyframes blink {
-        0%,
-        50% {
-          border-color: transparent;
-        }
-        51%,
-        100% {
-          border-color: #ffeb3b;
-        }
-      }
-
-      .hero-text p {
-        font-size: 1.2rem;
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 2rem;
-        font-weight: bold;
-        line-height: 1.8;
-      }
-
-      /* Tech Badges with Animation */
-      .tech-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 2rem;
-      }
-
-      .tech-badge {
-        background: rgba(0, 100, 128, 0.2);
-        color: rgb(255, 255, 255);
-        padding: 0.5rem 1rem;
-        border-radius: 25px;
-        font-size: 0.9rem;
-        /* backdrop-filter: blur(10px); */
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        animation: fadeInUp 1s ease-out;
-        animation-fill-mode: both;
-        transition: all 0.3s ease;
-      }
-
-      .tech-badge:nth-child(1) {
-        animation-delay: 0.1s;
-      }
-      .tech-badge:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .tech-badge:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-      .tech-badge:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-      .tech-badge:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-
-      .tech-badge:hover {
-        transform: translateY(-5px) scale(1.05);
-        background: rgba(0, 60, 255, 0.3);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .tech-badges-with-logos {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1.5rem;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .tech-badge-logo {
-        background: rgba(255, 255, 255, 0.8);
-        border: 2px solid rgba(135, 206, 235, 0.3);
-        border-radius: 15px;
-        padding: 1.5rem 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.8rem;
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-
-      .tech-badge-logo:hover {
-        transform: translateY(-5px);
-        border-color: #87ceeb;
-        box-shadow: 0 10px 25px rgba(135, 206, 235, 0.2);
-      }
-
-      .tech-badge-logo img {
-        width: 40px;
-        height: 40px;
-        object-fit: contain;
-      }
-
-      .tech-badge-logo span {
-        font-weight: 600;
-        color: #333;
-        font-size: 0.9rem;
-      }
-
-      @media (max-width: 768px) {
-        .tech-badges-with-logos {
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1rem;
-        }
-
-        .tech-badge-logo {
-          padding: 1rem 0.5rem;
-        }
-
-        .tech-badge-logo img {
-          width: 30px;
-          height: 30px;
-        }
-      }
-
-      /* Social Links with Hover Effects */
-      .hero-social-links {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .hero-social-links a {
-        width: 50px;
-        height: 50px;
-        background: rgba(0, 100, 128, 0.2);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-
-      .hero-social-links a:hover {
-        transform: translateY(-5px) rotate(360deg);
-        background: #0078ff;
-        box-shadow: 0 10px 25px rgba(0, 120, 255, 0.4);
-      }
-
-      /* CTA Buttons */
-      .cta-buttons {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem; /* Add this line to adjust bottom margin */
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 12px 30px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .btn::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: left 0.5s;
-      }
-
-      .btn:hover::before {
-        left: 100%;
-      }
-
-      .btn:first-child {
-        background: #87ceeb;
-        color: white;
-        box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
-      }
-
-      .btn:first-child:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(135, 206, 235, 0.4);
-        background: #5dade2;
-      }
-
-      .btn-outline {
-        background: transparent;
-        color: white;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-      }
-
-      .btn-outline:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-3px);
-      }
-
-      /* Hero Image with 3D Effect */
-      .hero-img {
-        position: relative;
-        animation: slideInRight 1s ease-out;
-      }
-
-      .hero-img img {
-        margin-left: 100px;
-        width: 100%;
-        max-width: 300px;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease;
-      }
-
-      @media (max-width: 768px) {
-        .hero-content {
-          grid-template-columns: 1fr; /* Change to single column */
-          text-align: center;
-          gap: 2rem;
-        }
-
-        .hero-img {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-        }
-
-        .hero-img img {
-          margin-left: 0; /* Remove the desktop left margin */
-        }
-      }
-      /* .hero-img:hover img {
-        transform: scale(1.05) rotateY(5deg);
-      } */
-
-      /* Floating Icons */
-      .floating-icon {
-        position: absolute;
-        animation: floatAround 6s ease-in-out infinite;
-        animation-delay: var(--delay);
-      }
-
-      /* .floating-icon:nth-child(2) {
-        top: 20%;
-        right: 10%;
-      }
-      .floating-icon:nth-child(3) {
-        top: 60%;
-        right: 20%;
-      }
-      .floating-icon:nth-child(4) {
-        top: 80%;
-        right: 5%;
-      } */
-
-      @keyframes floatAround {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        33% {
-          transform: translateY(-15px) rotate(120deg);
-        }
-        66% {
-          transform: translateY(5px) rotate(240deg);
-        }
-      }
-
-      /* Sections */
-      section {
-        padding: 80px 0;
-        position: relative;
-      }
-
-      .section-title {
-        text-align: center;
-        margin-bottom: 3rem;
-      }
-
-      .section-title h2 {
-        font-size: 2.5rem;
-        color: #87ceeb;
-        margin-bottom: 1rem;
-        position: relative;
-      }
-
-      .section-title h2::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        height: 3px;
-        background: linear-gradient(45deg, #87ceeb, #b3e0ff);
-        border-radius: 2px;
-      }
-
-      /* Enhanced Timeline */
-      .timeline {
-        position: relative;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      .timeline-line {
-        position: absolute;
-        width: 6px;
-        background: linear-gradient(180deg, #87ceeb, #b3e0ff);
-        top: 0;
-        left: 20px;
-        margin-left: -3px;
-        border-radius: 3px;
-        z-index: -1;
-        transform: scaleY(0);
-        transform-origin: top;
-        transition: transform 0.1s ease-out;
-      }
-
-      .timeline::after {
-        content: "";
-        position: absolute;
-        width: 6px;
-        background: linear-gradient(180deg, #87ceeb, #b3e0ff);
-        top: 0;
-        bottom: 0;
-        left: 20px;
-        margin-left: -3px;
-        border-radius: 3px;
-        z-index: -1;
-        transform: scaleY(0);
-        transform-origin: top;
-        animation: drawLine 1s ease-in-out 0.5s forwards;
-      }
-
-      @keyframes drawLine {
-        0% {
-          transform: scaleY(0);
-        }
-        100% {
-          transform: scaleY(1);
-        }
-      }
-      .timeline-item {
-        padding: 10px 40px;
-        position: relative;
-        background-color: inherit;
-        width: 100%;
-        margin-bottom: 30px;
-        opacity: 0;
-        animation: slideInFromLeft 0.6s ease-out forwards;
-      }
-
-      @keyframes slideInFromLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes slideInFromRight {
-        from {
-          opacity: 0;
-          transform: translateX(50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      .timeline-marker {
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        left: 9px;
-        background: linear-gradient(45deg, #87ceeb, #b3e0ff);
-        border: 4px solid white;
-        top: 15px;
-        border-radius: 50%;
-        z-index: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 0 0 rgba(135, 206, 235, 0.4);
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 0 0 rgba(135, 206, 235, 0.4);
-        }
-        70% {
-          box-shadow: 0 0 0 10px rgba(135, 206, 235, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(135, 206, 235, 0);
-        }
-      }
-
-      .timeline-item-content {
-        padding: 25px 30px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        position: relative;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        border-left: 5px solid #87ceeb;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #333;
-      }
-
-      .timeline-item:hover .timeline-item-content {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-      }
-
-      .timeline-dropdown {
-        cursor: pointer;
-      }
-
-      .timeline-header {
-        position: relative;
-      }
-
-      .dropdown-arrow {
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 12px;
-        color: #87ceeb;
-        transition: transform 0.3s ease;
-      }
-
-      .timeline-details-dropdown {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease, padding 0.4s ease;
-        padding: 0 30px;
-      }
-
-      .timeline-dropdown:hover .timeline-details-dropdown {
-        max-height: 500px;
-        padding: 15px 30px 0 30px;
-      }
-
-      .timeline-dropdown:hover .dropdown-arrow {
-        transform: translateY(-50%) rotate(180deg);
-      }
-
-      .timeline-dropdown .timeline-details {
-        margin: 0;
-        opacity: 0;
-        transition: opacity 0.3s ease 0.1s;
-        color: #333;
-      }
-
-      .timeline-dropdown:hover .timeline-details {
-        opacity: 1;
-      }
-
-      /* Project Cards */
-      .projects-grid {
-        padding-left: 3%;
-        padding-right: 3%;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
-      }
-
-      .project-card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-      }
-
-      .project-card:hover {
-        transform: translateY(-15px) scale(1.02);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      }
-
-      .project-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(45deg, #87ceeb, #b3e0ff);
-        z-index: 1;
-      }
-
-      .project-img {
-        height: 250px;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .project-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-      }
-
-      .project-card:hover .project-img img {
-        transform: scale(1.1);
-      }
-
-      /* Special handling for multi-image containers */
-      .project-img > div {
-        height: 100%;
-      }
-
-      .project-img > div img {
-        object-fit: contain;
-        background: #f5f5f5;
-      }
-
-      .project-info {
-        padding: 1.5rem;
-        color: #333;
-      }
-
-      /* Contact Form */
-      .contact-form {
-        max-width: 600px;
-        margin: 0 auto;
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
-
-      .form-group {
-        margin-bottom: 1.5rem;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .form-control {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #e1e5e9;
-        border-radius: 8px;
-        font-size: 1rem;
-        transition: border-color 0.3s ease;
-      }
-
-      .form-control:focus {
-        outline: none;
-        border-color: #0078ff;
-        box-shadow: 0 0 0 3px rgba(0, 120, 255, 0.1);
-      }
-
-      textarea.form-control {
-        height: 120px;
-        resize: vertical;
-      }
-
-      /* Footer */
-      footer {
-        background: #1a1a1a;
-        color: white;
-        text-align: center;
-        padding: 2rem 0;
-      }
-
-      .social-links {
-        margin-bottom: 1rem;
-      }
-
-      .social-links a {
-        color: white;
-        text-decoration: none;
-        margin: 0 1rem;
-        transition: color 0.3s ease;
-      }
-
-      .social-links a:hover {
-        color: #0078ff;
-      }
-
-      /* Responsive Design */
-      @media (max-width: 768px) {
-        .hero-content {
-          grid-template-columns: 1fr;
-          text-align: center;
-          gap: 2rem;
-        }
-
-        .name-with-shark h1 {
-          font-size: 2.5rem;
-        }
-
-        .cta-buttons {
-          flex-direction: column;
-          align-items: center;
-        }
-
-        nav ul {
-          gap: 1rem;
-        }
-
-        .timeline-item {
-          padding-left: 30px;
-        }
-
-        .timeline::after {
-          content: "";
-          position: absolute;
-          width: 6px;
-          background: linear-gradient(180deg, #87ceeb, #b3e0ff);
-          top: 0;
-          bottom: 0;
-          left: 20px;
-          margin-left: -3px;
-          border-radius: 3px;
-          /* z-index: 1000;  Added this line - one layer below the marker */
-        }
-
-        .timeline-marker {
-          left: 4px;
-        }
-      }
-
-      /* Scroll animations */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .fade-in-up {
-        animation: fadeInUp 0.6s ease-out forwards;
-      }
-
-      /* Modal styles */
-      .image-modal {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(5px);
-      }
-
-      .modal-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        padding: 20px;
-      }
-
-      .modal-image {
-        max-width: 90%;
-        max-height: 90%;
-        object-fit: contain;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      }
-
-      .close-modal {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        color: white;
-        font-size: 40px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: color 0.3s ease;
-      }
-
-      .close-modal:hover {
-        color: #87ceeb;
-      }
-
-      .modal-caption {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: white;
-        font-size: 18px;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.7);
-        padding: 10px 20px;
-        border-radius: 25px;
-      }
-    </style>
+    <title>Anthony Suh - Software Engineer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <!-- Header -->
-    <header>
-      <div class="container header-content">
-        <!-- <a href="#home" class="logo">Anthony Suh</a> -->
-        <nav>
-          <ul>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li>
-              <a
-                href="#home"
-                style="
-                  color: #b3e0ff;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-                >★</a
-              >
-            </li>
-            <li><a href="#about">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-content">
+        <a href="#" class="nav-logo">AS</a>
+        <div class="nav-links">
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a
+          href="./documents/Anthony_Suh_New_Grad_Resume.pdf"
+          target="_blank"
+          class="nav-resume"
+          >Resume</a
+        >
       </div>
-    </header>
+    </nav>
 
-    <!-- Enhanced Hero Section -->
-    <section id="home" class="hero">
-      <div class="container hero-content">
-        <div class="hero-text">
-          <div class="name-with-shark">
-            <h1>Hi, I'm Anthony</h1>
-          </div>
-
-          <p>
-            IM'm a student at University of California, Irvine and aspiring
-            software engineer who loves building things that actually solve real
-            problems and make people's daily lives a little easier.
-          </p>
-          <div style="display: flex; align-items: center; gap: 2rem">
-            <div class="hero-social-links">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <button id="spawn-character" class="spawn-btn">Spawn lil guy</button>
+        <div class="hero-main">
+          <div class="hero-text">
+            <p class="hero-greeting">Hi, my name is</p>
+            <h1 class="hero-name">Anthony Suh</h1>
+            <h2 class="hero-tagline">I build products that make an impact.</h2>
+            <p class="hero-description">
+              I'm a senior Computer Science student at UC Irvine graduating in
+              June 2026. I specialize in building full-stack applications that
+              solve real problems and make people's lives easier.
+            </p>
+            <div class="hero-links">
+              <a
+                href="https://github.com/antsuh1028"
+                target="_blank"
+                class="hero-link"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+              </a>
               <a
                 href="https://www.linkedin.com/in/anthonysuh/"
-                title="LinkedIn"
                 target="_blank"
+                class="hero-link"
               >
-                <svg viewBox="0 0 24 24" width="20" height="20">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                  fill="currentColor"
+                >
                   <path
-                    fill="currentColor"
                     d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
                   />
                 </svg>
               </a>
-              <a
-                href="https://github.com/antsuh1028"
-                title="GitHub"
-                target="_blank"
-              >
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path
-                    fill="currentColor"
-                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                  />
-                </svg>
-              </a>
-              <a
-                href="https://www.instagram.com/anthonythesuh/"
-                title="Instagram"
-                target="_blank"
-              >
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path
-                    fill="currentColor"
-                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
-                  />
-                </svg>
-              </a>
-            </div>
-            <div class="cta-buttons">
-              <a
-                href="./documents/Anthony_Suh_New_Grad_Resume.pdf"
-                class="btn"
-                target="_blank"
-                ><svg
+              <a href="mailto:ant.suh1028@gmail.com" class="hero-link">
+                <svg
                   viewBox="0 0 24 24"
-                  width="16"
-                  height="16"
-                  style="margin-right: 5px"
+                  width="22"
+                  height="22"
+                  fill="currentColor"
                 >
                   <path
-                    fill="currentColor"
-                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+                    d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
                   />
                 </svg>
-                Resume</a
-              >
+              </a>
             </div>
           </div>
-        </div>
-
-        <div class="hero-img">
-          <img src="./images/JP2.jpg" alt="Anthony Suh" />
+          <div class="hero-image">
+            <div class="hero-image-wrapper">
+              <div class="hero-carousel">
+                <img src="./images/grad.jpg" alt="Anthony Suh" class="active" />
+                <img src="./images/profile2.jpg" alt="Anthony Suh" />
+                <img src="./images/profile3.jpg" alt="Anthony Suh" />
+              </div>
+              <div class="hero-image-border"></div>
+            </div>
+            <div class="carousel-indicators">
+              <span class="indicator active"></span>
+              <span class="indicator"></span>
+              <span class="indicator"></span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience">
-      <div class="container">
-        <div class="section-title">
-          <h2>Professional Experience</h2>
-        </div>
+    <section id="experience" class="section">
+      <div class="section-content">
+        <h2 class="section-title">
+          <span class="section-number">01.</span> Experience
+        </h2>
 
-        <div class="timeline">
-          <!-- Latest Experience Item -->
-          <div class="timeline-line"></div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-item-content timeline-dropdown">
-              <div class="timeline-header">
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  <h3>Software Development Intern</h3>
-                  <img
-                    src="./images/main_logo.png"
-                    alt="AdamsFoods Logo"
-                    style="height: 24px; width: auto"
-                  />
+        <div class="experience-list">
+          <!-- Experience 1 -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <div class="experience-logo">
+                <img src="./images/main_logo.png" alt="AdamsFoods Logo" />
+              </div>
+              <div class="experience-title-row">
+                <h3 class="experience-role">Software Engineer</h3>
+                <span class="experience-company">
                   <a
-                    href="https://adamsfoodswholesale.com"
+                    href="https://www.adamsfoods.us/"
                     target="_blank"
-                    style="
-                      background: #333;
-                      color: white;
-                      padding: 4px 8px;
-                      border-radius: 12px;
-                      font-size: 11px;
-                      text-decoration: none;
-                      display: flex;
-                      align-items: center;
-                      gap: 4px;
-                      transition: all 0.3s ease;
-                    "
-                    onmouseover="this.style.background='#0078ff'"
-                    onmouseout="this.style.background='#333'"
+                    class="company-link"
+                    >@ AdamsFoods</a
                   >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
-                      />
-                    </svg>
-                    Website
-                  </a>
-                </div>
-
-                <div
-                  style="
-                    background: #f0f8ff;
-                    color: #333;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-block;
-                    margin: 4px 0;
-                    border: 1px solid #d0e8ff;
-                  "
-                >
-                  AdamsFoods
-                </div>
-
-                <div
-                  style="
-                    background: #e6f3ff;
-                    color: #0078ff;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #b3e0ff;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V7H5V5H19M5,19V9H19V19H5Z"
-                    />
-                  </svg>
-                  April 2025 - Present
-                </div>
-
-                <div
-                  style="
-                    background: #f5f5f5;
-                    color: #666;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #ddd;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"
-                    />
-                  </svg>
-                  Los Angeles, CA
-                </div>
-
-                <div class="dropdown-arrow">▼</div>
+                </span>
               </div>
-              <div class="timeline-details-dropdown">
-                <div style="display: flex; gap: 20px; align-items: flex-start">
-                  <div style="flex: 1">
-                    <p
-                      style="
-                        margin-bottom: 15px;
-                        font-size: 14px;
-                        color: #333;
-                        line-height: 1.6;
-                      "
-                    >
-                      For this internship, I got the amazing opportunity to work
-                      on B2B wholesale platform for AdamsFoods, that helps
-                      restaurant and business clients streamline their ordering
-                      process with us. Before this system, their clients had to
-                      place orders through manual phone calls and lengthy email
-                      chains, which often led to miscommunications, inventory
-                      mix-ups, and time-consuming order confirmations.
-                    </p>
-                    <p
-                      style="
-                        margin-bottom: 15px;
-                        font-size: 14px;
-                        color: #333;
-                        line-height: 1.6;
-                      "
-                    >
-                      The work involves building intuitive React interfaces that
-                      make browsing products and placing orders effortless,
-                      while also optimizing backend services and integrating
-                      with existing inventory management systems from previous
-                      projects to create a seamless end-to-end solution. It also
-                      includes an admin dashboard that gives the team a clear
-                      view of incoming orders, current inventory levels, and
-                      client activity all in one place, which has made managing
-                      the business side much smoother.
-                    </p>
-
-                    <ul class="timeline-details" style="margin: 0 0 15px 0">
-                      <li>
-                        Built and deployed B2B wholesale platform using React,
-                        Node.js, and PostgreSQL, acquiring
-                        <strong>10</strong> new restaurant clients and
-                        processing <strong>$10K+</strong> in monthly orders
-                      </li>
-                      <li>
-                        Developed comprehensive admin dashboard with real-time
-                        analytics, inventory tracking, and automated order
-                        notifications, reducing processing time by
-                        <strong>35%</strong>
-                      </li>
-                      <li>
-                        Integrated platform with existing inventory management
-                        system to enable real-time stock updates and automated
-                        reorder alerts across warehouse operations
-                      </li>
-                    </ul>
-
-                    <!-- Tech Stack -->
-                    <div
-                      style="
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 5px;
-                        margin-top: 10px;
-                      "
-                    >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >React</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >Node.js</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >PostgreSQL</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >AWS S3</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >AWS Lightsail</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >Express</span
-                      >
-                    </div>
-                  </div>
-                  <div style="flex-shrink: 0">
-                    <img
-                      src="./images/afwholesale.jpg"
-                      alt="AdamsFoods Wholesale Platform"
-                      style="
-                        width: 400px;
-                        height: auto;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                        border: 1px solid rgba(135, 206, 235, 0.3);
-                        transition: transform 0.3s ease;
-                        cursor: pointer;
-                      "
-                      onclick="window.open('https://adamsfoodswholesale.com', '_blank')"
-                      onmouseover="this.style.transform='scale(1.05)'"
-                      onmouseout="this.style.transform='scale(1)'"
-                    />
-                  </div>
-                </div>
-              </div>
+              <span class="experience-date">Apr 2025 — Present</span>
+            </div>
+            <ul class="experience-details">
+              <li>
+                Built B2B full-stack platform using Next.js, React, and
+                Tailwind, facilitating $10,000 in wholesale orders
+              </li>
+              <li>
+                Architected order processing pipeline with Node and Express,
+                creating 10+ RESTful API endpoints and reducing processing time
+                by 35%
+              </li>
+              <li>
+                Integrated AWS S3 for image/document storage and deployed the
+                application on AWS Lightsail
+              </li>
+              <li>
+                Created admin dashboard and ordering system used to onboard 10+
+                restaurant clients
+              </li>
+            </ul>
+            <div class="experience-tech">
+              <span>Next.js</span>
+              <span>React</span>
+              <span>Tailwind</span>
+              <span>Node.js</span>
+              <span>Express</span>
+              <span>AWS S3</span>
             </div>
           </div>
 
-          <!-- Experience Item 1 -->
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-item-content timeline-dropdown">
-              <div class="timeline-header">
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  <h3>Full-Stack Developer</h3>
-                  <img
-                    src="./images/ctc.png"
-                    alt="CTC Logo"
-                    style="
-                      height: 48px;
-                      width: 48px;
-                      border-radius: 50%;
-                      object-fit: cover;
-                    "
-                  />
+          <!-- Experience 2 -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <div class="experience-logo">
+                <img src="./images/sunstone.png" alt="AdamsFoods Logo" />
+              </div>
+              <div class="experience-title-row">
+                <h3 class="experience-role">Project Software Developer</h3>
+                <span class="experience-company">
                   <a
-                    href="https://github.com/ctc-uci/lpa"
+                    href="https://sunstonecities.com/"
                     target="_blank"
-                    style="
-                      background: #333;
-                      color: white;
-                      padding: 4px 8px;
-                      border-radius: 12px;
-                      font-size: 11px;
-                      text-decoration: none;
-                      display: flex;
-                      align-items: center;
-                      gap: 4px;
-                      transition: all 0.3s ease;
-                    "
-                    onmouseover="this.style.background='#0078ff'"
-                    onmouseout="this.style.background='#333'"
+                    class="company-link"
+                    >@ Sunstone Cities</a
                   >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                      />
-                    </svg>
-                    GitHub
-                  </a>
-                </div>
-
-                <div
-                  style="
-                    background: #f0f8ff;
-                    color: #333;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-block;
-                    margin: 4px 0;
-                    border: 1px solid #d0e8ff;
-                  "
-                >
-                  Commit the Change @ UCI - La Peña Cultural Center
-                </div>
-
-                <div
-                  style="
-                    background: #e6f3ff;
-                    color: #0078ff;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #b3e0ff;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V7H5V5H19M5,19V9H19V19H5Z"
-                    />
-                  </svg>
-                  October 2024 - Present
-                </div>
-
-                <div
-                  style="
-                    background: #f5f5f5;
-                    color: #666;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #ddd;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"
-                    />
-                  </svg>
-                  Irvine, CA
-                </div>
-
-                <div class="dropdown-arrow">▼</div>
+                </span>
               </div>
-              <div class="timeline-details-dropdown">
-                <div style="display: flex; gap: 20px; align-items: flex-start">
-                  <div style="flex: 1">
-                    <p
-                      style="
-                        margin-bottom: 15px;
-                        font-size: 14px;
-                        color: #333;
-                        line-height: 1.6;
-                      "
-                    >
-                      At Commit the Change, I worked on a project for La Peña
-                      Cultural Center, a nonprofit organization that builds
-                      community through cultural events and art workshops in the
-                      Bay Area. A hardship they were facing was with scheduling
-                      and managing room bookings, which was all done through
-                      paper forms and word of mouth. I worked with a team of 15
-                      to build a full-stack web application that digitized their
-                      entire administrative workflow, from room bookings and
-                      class registration to invoice processing and client
-                      communication. Our React frontend and Node.js/Express
-                      backend reduced manual processing time by 60% while
-                      managing over 50 monthly bookings. The optimized invoice
-                      calculation logic alone saved them roughly 10 hours of
-                      manual work each month, letting them focus more on serving
-                      their community.
-                    </p>
-
-                    <ul class="timeline-details" style="margin: 0 0 15px 0">
-                      <li>
-                        Contributed to full-stack development in a
-                        <strong>15-person</strong> team for nonprofit cultural
-                        center platform using React, Node.js, Express, and
-                        PostgreSQL
-                      </li>
-                      <li>
-                        Led migration from paper-based to digital storage and
-                        streamlined class scheduling by
-                        <strong>50%</strong> through automated calendar and
-                        registration features for <strong>20+</strong> weekly
-                        cultural classes
-                      </li>
-                    </ul>
-
-                    <!-- Tech Stack -->
-                    <div
-                      style="
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 5px;
-                        margin-top: 10px;
-                      "
-                    >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >React</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >Node.js</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >Express</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >PostgreSQL</span
-                      >
-                    </div>
-                  </div>
-                  <div style="flex-shrink: 0">
-                    <img
-                      src="./images/ctc_laptop.png"
-                      alt="CTC Application"
-                      style="
-                        width: 400px;
-                        height: auto;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                        border: 1px solid rgba(135, 206, 235, 0.3);
-                        transition: transform 0.3s ease;
-                      "
-                    />
-                  </div>
-                </div>
-              </div>
+              <span class="experience-date">Sep 2025 — Present</span>
+            </div>
+            <ul class="experience-details">
+              <li>
+                Built Python/FastAPI backend processing Census Bureau data for
+                400+ cities to automate economic report generation
+              </li>
+              <li>
+                Integrated OpenAI API for AI-powered economic insights and
+                analysis in generated reports
+              </li>
+              <li>
+                Developed data pipeline with multi-year fallback logic, parsing
+                JSON and generating PDF reports
+              </li>
+            </ul>
+            <div class="experience-tech">
+              <span>Python</span>
+              <span>FastAPI</span>
+              <span>OpenAI API</span>
             </div>
           </div>
 
-          <!-- Experience Item 2 -->
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-item-content timeline-dropdown">
-              <div class="timeline-header">
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  <h3>Software Development Intern</h3>
-                  <img
-                    src="./images/main_logo.png"
-                    alt="AdamsFoods Logo"
-                    style="height: 24px; width: auto"
-                  />
+          <!-- Experience 3 -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <div class="experience-logo">
+                <img src="./images/ctc.png" alt="AdamsFoods Logo" />
+              </div>
+              <div class="experience-title-row">
+                <h3 class="experience-role">Software Engineer</h3>
+                <span class="experience-company">
                   <a
-                    href="https://github.com/antsuh1028/AdamsFoodsInventory"
+                    href="https://lapena.org/"
                     target="_blank"
-                    style="
-                      background: #333;
-                      color: white;
-                      padding: 4px 8px;
-                      border-radius: 12px;
-                      font-size: 11px;
-                      text-decoration: none;
-                      display: flex;
-                      align-items: center;
-                      gap: 4px;
-                      transition: all 0.3s ease;
-                    "
-                    onmouseover="this.style.background='#0078ff'"
-                    onmouseout="this.style.background='#333'"
+                    class="company-link"
+                    >@ Commit the Change (La Peña Cultural Center)</a
                   >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                      />
-                    </svg>
-                    GitHub
-                  </a>
-                </div>
-
-                <div
-                  style="
-                    background: #f0f8ff;
-                    color: #333;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-block;
-                    margin: 4px 0;
-                    border: 1px solid #d0e8ff;
-                  "
-                >
-                  AdamsFoods
-                </div>
-
-                <div
-                  style="
-                    background: #e6f3ff;
-                    color: #0078ff;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #b3e0ff;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V7H5V5H19M5,19V9H19V19H5Z"
-                    />
-                  </svg>
-                  June 2024 - September 2024
-                </div>
-
-                <div
-                  style="
-                    background: #f5f5f5;
-                    color: #666;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #ddd;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"
-                    />
-                  </svg>
-                  Los Angeles, CA
-                </div>
-
-                <div class="dropdown-arrow">▼</div>
+                </span>
               </div>
-              <div class="timeline-details-dropdown">
-                <div style="display: flex; gap: 20px; align-items: flex-start">
-                  <div style="flex: 1">
-                    <p
-                      style="
-                        margin-bottom: 15px;
-                        font-size: 14px;
-                        color: #333;
-                        line-height: 1.6;
-                      "
-                    >
-                      For this internship position, I worked with a team of 2 to
-                      develop a comprehensive inventory management system for
-                      AdamsFoods' warehouse operations. Prior to this system,
-                      the warehouse relied on handwritten logs and manual
-                      tracking methods, which often led to inventory
-                      discrepancies, lost items, and delays in order
-                      fulfillment. The new system digitized inventory tracking
-                      with real-time updates and accurate stock levels,
-                      featuring streamlined data entry through barcode scanning
-                      integration that significantly reduced manual input errors
-                      and sped up the receiving and stocking process.
-                    </p>
-                    <ul class="timeline-details" style="margin: 0 0 15px 0">
-                      <li>
-                        Built full-stack inventory management system using AWS
-                        Lightsail, React, and MongoDB, tracking
-                        <strong>300+</strong> products and preventing
-                        <strong>$15,000/month</strong> in losses
-                      </li>
-                      <li>
-                        Automated warehouse operations by replacing handwritten
-                        logs with digital tracking system, saving
-                        <strong>5-7 hours</strong> weekly and eliminating
-                        transcription errors
-                      </li>
-                      <li>
-                        Led complete development lifecycle from system design to
-                        AWS deployment, creating scalable CRUD operations for
-                        supply chain management
-                      </li>
-                    </ul>
-
-                    <!-- Tech Stack -->
-                    <div
-                      style="
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 5px;
-                        margin-top: 10px;
-                      "
-                    >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >AWS Lightsail</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >React</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >JavaScript</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >HTML/CSS</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >MongoDB</span
-                      >
-                      <span
-                        style="
-                          background: #e8f4f8;
-                          color: #0066cc;
-                          padding: 3px 8px;
-                          border-radius: 12px;
-                          font-size: 11px;
-                          font-weight: 500;
-                        "
-                        >Express</span
-                      >
-                    </div>
-                  </div>
-                  <div style="flex-shrink: 0">
-                    <img
-                      src="./images/afdc.png"
-                      alt="AFDC Application"
-                      style="
-                        width: 400px;
-                        height: auto;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                        border: 1px solid rgba(135, 206, 235, 0.3);
-                        transition: transform 0.3s ease;
-                      "
-                    />
-                  </div>
-                </div>
-              </div>
+              <span class="experience-date">Oct 2024 — Present</span>
+            </div>
+            <ul class="experience-details">
+              <li>
+                Built full-stack React web app with Express and PostgreSQL for
+                cultural center operations
+              </li>
+              <li>
+                Automated invoice generation and event management for 50+
+                monthly events
+              </li>
+              <li>
+                Reduced administrative workload by 60% through backend
+                optimization
+              </li>
+            </ul>
+            <div class="experience-tech">
+              <span>React</span>
+              <span>Express</span>
+              <span>PostgreSQL</span>
             </div>
           </div>
 
-          <!-- Experience Item 3 -->
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-item-content timeline-dropdown">
-              <div class="timeline-header">
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  <h3>Supply Chain Intern</h3>
-                  <img
-                    src="./images/main_logo.png"
-                    alt="AdamsFoods Logo"
-                    style="height: 24px; width: auto"
-                  />
-                </div>
-
-                <div
-                  style="
-                    background: #f0f8ff;
-                    color: #333;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-block;
-                    margin: 4px 0;
-                    border: 1px solid #d0e8ff;
-                  "
-                >
-                  AdamsFoods
-                </div>
-
-                <div
-                  style="
-                    background: #e6f3ff;
-                    color: #0078ff;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #b3e0ff;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V7H5V5H19M5,19V9H19V19H5Z"
-                    />
-                  </svg>
-                  June 2023 - September 2023
-                </div>
-
-                <div
-                  style="
-                    background: #f5f5f5;
-                    color: #666;
-                    padding: 6px 12px;
-                    border-radius: 8px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    margin-left: 10px;
-                    border: 1px solid #ddd;
-                  "
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"
-                    />
-                  </svg>
-                  Los Angeles, CA
-                </div>
-
-                <div class="dropdown-arrow">▼</div>
+          <!-- Experience 4 -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <div class="experience-logo">
+                <img src="./images/main_logo.png" alt="AdamsFoods Logo" />
               </div>
-              <div class="timeline-details-dropdown">
-                <div style="flex: 1">
-                  <p
-                    style="
-                      margin-bottom: 15px;
-                      font-size: 14px;
-                      color: #333;
-                      line-height: 1.6;
-                    "
+              <div class="experience-title-row">
+                <h3 class="experience-role">Software Development Intern</h3>
+                <span class="experience-company">
+                  <a
+                    href="https://www.adamsfoods.us/"
+                    target="_blank"
+                    class="company-link"
+                    >@ AdamsFoods</a
                   >
-                    Although this wasn't a tech role, it gave me valuable
-                    insight into how businesses operate and the real-world
-                    problems that technology can solve. Working directly in
-                    AdamsFoods' warehouse operations, I got to see firsthand how
-                    inefficient manual processes can slow down an entire supply
-                    chain. This experience taught me to think beyond just
-                    writing code - understanding the business context and user
-                    pain points became just as important as the technical
-                    implementation. It also sparked my interest in building
-                    systems that could automate these tedious manual workflows,
-                    which directly influenced my approach in later software
-                    development projects.
-                  </p>
-
-                  <ul class="timeline-details" style="margin: 0 0 15px 0">
-                    <li>
-                      Optimized inventory management processes by digitizing
-                      paper records and implementing Excel tracking systems for
-                      vendor coordination and logistics workflow documentation
-                    </li>
-                    <li>
-                      Analyzed supply chain operations and documented
-                      procurement procedures, successfully training new team
-                      members on warehouse and distribution protocols
-                    </li>
-                  </ul>
-
-                  <!-- Tech Stack -->
-                  <div
-                    style="
-                      display: flex;
-                      flex-wrap: wrap;
-                      gap: 5px;
-                      margin-top: 10px;
-                    "
-                  >
-                    <span
-                      style="
-                        background: #e8f4f8;
-                        color: #0066cc;
-                        padding: 3px 8px;
-                        border-radius: 12px;
-                        font-size: 11px;
-                        font-weight: 500;
-                      "
-                      >Excel</span
-                    >
-                    <span
-                      style="
-                        background: #e8f4f8;
-                        color: #0066cc;
-                        padding: 3px 8px;
-                        border-radius: 12px;
-                        font-size: 11px;
-                        font-weight: 500;
-                      "
-                      >Process Documentation</span
-                    >
-                  </div>
-                </div>
+                </span>
               </div>
+              <span class="experience-date">Jun — Sep 2024</span>
+            </div>
+            <ul class="experience-details">
+              <li>
+                Built inventory management system using React, MongoDB, and
+                Next.js, tracking 300+ products
+              </li>
+              <li>
+                Surfaced $15,000 in potential losses through real-time inventory
+                tracking
+              </li>
+              <li>
+                Reduced 5–7 hours weekly by replacing manual handwritten logs
+                and streamlining data entry
+              </li>
+              <li>
+                Containerized the application with Docker and deployed on AWS
+                Lightsail
+              </li>
+            </ul>
+            <div class="experience-tech">
+              <span>React</span>
+              <span>Next.js</span>
+              <span>MongoDB</span>
+              <span>Docker</span>
+              <span>AWS Lightsail</span>
             </div>
           </div>
         </div>
@@ -2165,956 +299,260 @@
     </section>
 
     <!-- Projects Section -->
-    <div id="projects" class="section-title" style="margin-top: 80px">
-      <h2>Projects</h2>
-    </div>
+    <section id="projects" class="section">
+      <div class="section-content">
+        <h2 class="section-title">
+          <span class="section-number">02.</span> Projects
+        </h2>
 
-    <div class="projects-grid">
-      <!-- Project 1 - DineSafe -->
-      <div class="project-card">
-        <div class="project-img">
-          <div style="display: flex; height: 250px; gap: 3px">
-            <img
-              src="./images/dinesafe/home.jpg"
-              alt="DineSafe Home"
-              style="
-                flex: 2;
-                width: 66%;
-                height: 100%;
-                object-fit: contain;
-                background: #f5f5f5;
-                cursor: pointer;
-              "
-              onclick="openImageModal(this.src, this.alt)"
-            />
-            <div
-              style="display: flex; flex-direction: column; flex: 1.5; gap: 3px"
-            >
-              <img
-                src="./images/dinesafe/songhak.jpg"
-                alt="DineSafe Songhak"
-                style="
-                  flex: 1;
-                  width: 100%;
-                  min-height: 120px;
-                  object-fit: contain;
-                  background: #f5f5f5;
-                  cursor: pointer;
-                "
-                onclick="openImageModal(this.src, this.alt)"
-              />
-              <img
-                src="./images/dinesafe/doc.jpg"
-                alt="DineSafe Documentation"
-                style="
-                  flex: 1;
-                  width: 100%;
-                  min-height: 120px;
-                  object-fit: contain;
-                  background: #f5f5f5;
-                  cursor: pointer;
-                "
-                onclick="openImageModal(this.src, this.alt)"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="project-info">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 10px;
-            "
-          >
-            <div style="display: flex; align-items: center; gap: 10px">
-              <h3>DineSafe</h3>
-              <a
-                href="https://github.com/Geoffrey0953/Web-Jam-Hackathon"
-                target="_blank"
-                style="
-                  background: #333;
-                  color: white;
-                  padding: 3px 6px;
-                  border-radius: 8px;
-                  font-size: 10px;
-                  text-decoration: none;
-                  display: flex;
-                  align-items: center;
-                  gap: 3px;
-                  transition: all 0.3s ease;
-                "
-                onmouseover="this.style.background='#0078ff'"
-                onmouseout="this.style.background='#333'"
-              >
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <div class="project-card featured">
+            <div class="project-top">
+              <div class="project-folder">
                 <svg
-                  width="10"
-                  height="10"
                   viewBox="0 0 24 24"
-                  fill="currentColor"
+                  width="40"
+                  height="40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 >
                   <path
-                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                  />
+                    d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+                  ></path>
                 </svg>
-                GitHub
-              </a>
-            </div>
-            <span
-              style="
-                background: #87ceeb;
-                color: white;
-                padding: 3px 8px;
-                border-radius: 4px;
-                font-size: 12px;
-              "
-            >
-              2nd Place Winner, UCI Hackathon 2025
-            </span>
-          </div>
-          <p style="font-weight: 500; margin-bottom: 10px; color: #666">
-            Restaurant Health Inspection Platform
-          </p>
-          <ul style="padding-left: 20px; margin-bottom: 15px; font-size: 14px">
-            <li>
-              Collaborated in a team of <strong>4</strong> to create a
-              full-stack MERN application visualizing health inspection data for
-              <strong>400+</strong> Orange County restaurants
-            </li>
-            <li>
-              Developed a Python script utilizing web scraping and OpenAI's GPT
-              API for automated report summarization
-            </li>
-            <li>
-              Built interactive map interface with Google Maps API that features
-              real-time geolocation and custom markers
-            </li>
-            <li>
-              Integrated direct access to official health inspection documents
-              and violation reports for transparency
-            </li>
-          </ul>
-          <div
-            style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px"
-          >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >MongoDB</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Express</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >React</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Node.js</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Python</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >JavaScript</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Google Maps API</span
-            >
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 2 - Updated Homesteadr -->
-      <div class="project-card">
-        <div class="project-img">
-          <img src="/images/HomeSteadr.png" alt="Homesteadr Project" />
-        </div>
-        <div class="project-info">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 10px;
-            "
-          >
-            <div style="display: flex; align-items: center; gap: 10px">
-              <h3>Homesteadr</h3>
-              <a
-                href="https://github.com/antsuh1028/HomeSteadr"
-                target="_blank"
-                style="
-                  background: #333;
-                  color: white;
-                  padding: 3px 6px;
-                  border-radius: 8px;
-                  font-size: 10px;
-                  text-decoration: none;
-                  display: flex;
-                  align-items: center;
-                  gap: 3px;
-                  transition: all 0.3s ease;
-                "
-                onmouseover="this.style.background='#0078ff'"
-                onmouseout="this.style.background='#333'"
-              >
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://github.com/Geoffrey0953/Web-Jam-Hackathon"
+                  target="_blank"
+                  aria-label="GitHub"
                 >
-                  <path
-                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                  />
-                </svg>
-                GitHub
-              </a>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                    />
+                  </svg>
+                </a>
+              </div>
             </div>
-            <span
-              style="
-                background: #87ceeb;
-                color: white;
-                padding: 3px 8px;
-                border-radius: 4px;
-                font-size: 12px;
-              "
-            >
-              Hack@UCI 2024
-            </span>
-          </div>
-          <p style="font-weight: 500; margin-bottom: 10px; color: #666">
-            AI-Powered Real Estate Investment Platform
-          </p>
-          <ul style="padding-left: 20px; margin-bottom: 15px; font-size: 14px">
-            <li>
-              Built full-stack React Native mobile application with secure user
-              authentication and real-time social features for daily prompt
-              responses
-            </li>
-            <li>
-              Integrated Gemini API to generate personalized, thought-provoking
-              daily questions that encourage meaningful self-reflection and
-              community engagement
-            </li>
-            <li>
-              Implemented interactive word cloud visualization using animated
-              components and gradient backgrounds for enhanced user engagement
-            </li>
-            <li>
-              Designed intuitive user interface with custom navigation, profile
-              management, and comment system using TypeScript and Expo Router
-            </li>
-          </ul>
-          <div
-            style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px"
-          >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >React</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >TypeScript</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Node.js</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Firebase</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Groq AI</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Google Maps API</span
-            >
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 3 - Sonder App -->
-      <div class="project-card">
-        <div class="project-img">
-          <div style="display: flex; height: 250px; gap: 3px">
-            <img
-              src="./images/sonder/home.jpg"
-              alt="Sonder App Home"
-              style="
-                flex: 1;
-                height: 100%;
-                width: 50%;
-                object-fit: contain;
-                background: #f5f5f5;
-                cursor: pointer;
-              "
-              onclick="openImageModal(this.src, this.alt)"
-            />
-            <img
-              src="./images/sonder/wordstorm.jpg"
-              alt="Sonder App Wordstorm"
-              style="
-                flex: 1;
-                height: 100%;
-                width: 50%;
-                object-fit: contain;
-                background: #f5f5f5;
-                cursor: pointer;
-              "
-              onclick="openImageModal(this.src, this.alt)"
-            />
-          </div>
-        </div>
-        <div class="project-info">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin-bottom: 10px;
-            "
-          >
-            <div style="display: flex; align-items: center; gap: 10px">
-              <h3>Sonder</h3>
-              <a
-                href="https://github.com/kellyserafico/sonder"
-                target="_blank"
-                style="
-                  background: #333;
-                  color: white;
-                  padding: 3px 6px;
-                  border-radius: 8px;
-                  font-size: 10px;
-                  text-decoration: none;
-                  display: flex;
-                  align-items: center;
-                  gap: 3px;
-                  transition: all 0.3s ease;
-                "
-                onmouseover="this.style.background='#0078ff'"
-                onmouseout="this.style.background='#333'"
-              >
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                  />
-                </svg>
-                GitHub
-              </a>
-            </div>
-            <span
-              style="
-                background: #87ceeb;
-                color: white;
-                padding: 3px 8px;
-                border-radius: 4px;
-                font-size: 12px;
-              "
-            >
-              LA Hacks 2025
-            </span>
-          </div>
-          <p style="font-weight: 500; margin-bottom: 10px; color: #666">
-            Social Media App for Daily Reflection
-          </p>
-          <ul style="padding-left: 20px; margin-bottom: 15px; font-size: 14px">
-            <li>
-              Built full-stack React Native mobile application with secure user
-              authentication and real-time social features for daily prompt
-              responses
-            </li>
-            <li>
-              Implemented interactive word cloud visualization using animated
-              components and gradient backgrounds for enhanced user engagement
-            </li>
-            <li>
-              Designed intuitive user interface with custom navigation, profile
-              management, and comment system using TypeScript and Expo Router
-            </li>
-          </ul>
-          <div
-            style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px"
-          >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >React Native</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >TypeScript</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Expo</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >Node.js</span
-            >
-            <span
-              style="
-                background: #f0f0f0;
-                padding: 3px 8px;
-                border-radius: 20px;
-                font-size: 12px;
-              "
-              >PostgreSQL</span
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- About Section -->
-    <section id="about">
-      <div class="container">
-        <div class="section-title">
-          <h2>Skills & Technologies</h2>
-        </div>
-
-        <div
-          style="
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 3rem;
-            margin: 2rem auto;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            max-width: 1000px;
-            text-align: center;
-          "
-        >
-          <p style="font-size: 1.2rem; color: #666; margin-bottom: 3rem">
-            Technologies I've learned and used in projects, coursework, and
-            professional work:
-          </p>
-
-          <div class="tech-badges-with-logos">
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                alt="Python"
-              />
-              <span>Python</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-                alt="JavaScript"
-              />
-              <span>JavaScript</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-                alt="TypeScript"
-              />
-              <span>TypeScript</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
-                alt="C++"
-              />
-              <span>C/C++</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-                alt="HTML/CSS"
-              />
-              <span>HTML/CSS</span>
-            </div>
-
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                alt="React"
-              />
-              <span>React</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-                alt="Node.js"
-              />
-              <span>Node.js</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
-                alt="MongoDB"
-              />
+            <h3 class="project-title">DineSafe</h3>
+            <p class="project-award">🏆 2nd Place — UCI Hackathon 2025</p>
+            <p class="project-description">
+              Full-stack MERN application visualizing health inspection data for
+              400+ Orange County restaurants. Features interactive Google Maps
+              interface with real-time geolocation and AI-powered report
+              summarization.
+            </p>
+            <div class="project-tech-list">
               <span>MongoDB</span>
+              <span>Express</span>
+              <span>React</span>
+              <span>Node.js</span>
+              <span>Python</span>
+              <span>OpenAI API</span>
             </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
-                alt="PostgreSQL"
-              />
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card">
+            <div class="project-top">
+              <div class="project-folder">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="40"
+                  height="40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://github.com/antsuh1028/HomeSteadr"
+                  target="_blank"
+                  aria-label="GitHub"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Homesteadr</h3>
+            <p class="project-award">Hack@UCI 2024</p>
+            <p class="project-description">
+              AI-powered real estate investment platform with secure
+              authentication and real-time social features. Integrated Gemini
+              API for personalized property recommendations.
+            </p>
+            <div class="project-tech-list">
+              <span>React</span>
+              <span>TypeScript</span>
+              <span>Firebase</span>
+              <span>Groq AI</span>
+              <span>Google Maps API</span>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card">
+            <div class="project-top">
+              <div class="project-folder">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="40"
+                  height="40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://github.com/kellyserafico/sonder"
+                  target="_blank"
+                  aria-label="GitHub"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Sonder</h3>
+            <p class="project-award">LA Hacks 2025</p>
+            <p class="project-description">
+              React Native mobile app for daily reflection with interactive word
+              cloud visualization and real-time social features. Built with
+              TypeScript and Expo Router.
+            </p>
+            <div class="project-tech-list">
+              <span>React Native</span>
+              <span>TypeScript</span>
+              <span>Expo</span>
               <span>PostgreSQL</span>
             </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
-                alt="AWS"
-              />
-              <span>AWS</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
-                alt="Express"
-              />
-              <span>Express</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                alt="React Native"
-              />
-              <span>React Native</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
-                alt="Firebase"
-              />
-              <span>Firebase</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-                alt="Git"
-              />
-              <span>Git</span>
-            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"
-                alt="Django"
-              />
-              <span>Django</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
-                alt="Docker"
-              />
-              <span>Docker</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg"
-                alt="Linux"
-              />
-              <span>Linux</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vim/vim-original.svg"
-                alt="Vim"
-              />
-              <span>Vim</span>
-            </div>
-            <div class="tech-badge-logo">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
-                alt="Figma"
-              />
-              <span>Figma</span>
-            </div>
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="section-content">
+        <h2 class="section-title">
+          <span class="section-number">03.</span> Skills
+        </h2>
+
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3>Languages</h3>
+            <ul>
+              <li>JavaScript / TypeScript</li>
+              <li>Python</li>
+              <li>Java</li>
+              <li>C++</li>
+              <li>HTML / CSS</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <h3>Frameworks</h3>
+            <ul>
+              <li>React / Next.js</li>
+              <li>Node.js / Express</li>
+              <li>FastAPI</li>
+              <li>Tailwind CSS</li>
+              <li>PyTorch</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <h3>Cloud & Databases</h3>
+            <ul>
+              <li>AWS (EC2, S3, Lightsail)</li>
+              <li>PostgreSQL</li>
+              <li>MongoDB</li>
+              <li>Firebase</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <h3>Tools</h3>
+            <ul>
+              <li>Docker / Kubernetes</li>
+              <li>Git / GitHub</li>
+              <li>Linux</li>
+              <li>Vite</li>
+              <li>Figma</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
-      <div class="container">
-        <div class="section-title">
-          <h2>Get In Touch</h2>
-          <p
-            style="
-              font-size: 1.1rem;
-              color: #ffffff;
-              max-width: 600px;
-              margin: 0 auto;
-              margin-top: 2rem;
-            "
-          >
-            I'm always open to discussing new opportunities, feel free to reach
-            out!
-          </p>
-        </div>
-
-        <div style="text-align: center; margin-top: 2rem">
-          <a
-            href="mailto:ant.suh1028@gmail.com"
-            class="btn"
-            style="
-              display: inline-block;
-              padding: 15px 40px;
-              border-radius: 30px;
-              text-decoration: none;
-              font-weight: bold;
-              background: #87ceeb;
-              color: white;
-              box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
-              transition: all 0.3s ease;
-              border: none;
-              cursor: pointer;
-              font-size: 1.1rem;
-            "
-            onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(135, 206, 235, 0.4)'; this.style.background='#5dade2'"
-            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(135, 206, 235, 0.3)'; this.style.background='#87ceeb'"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              style="margin-right: 10px; vertical-align: middle"
-            >
-              <path
-                fill="currentColor"
-                d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
-              />
-            </svg>
-            Send me an email
-          </a>
-        </div>
+    <section id="contact" class="section section-contact">
+      <div class="section-content contact-content">
+        <p class="contact-overline">04. What's Next?</p>
+        <h2 class="contact-title">Get In Touch</h2>
+        <p class="contact-description">
+          I'm currently looking for new grad software engineering opportunities
+          starting Summer 2026. Whether you have an opportunity or just want to
+          say hi, my inbox is always open.
+        </p>
+        <a href="mailto:ant.suh1028@gmail.com" class="contact-button"
+          >Say Hello</a
+        >
       </div>
     </section>
 
     <!-- Footer -->
-    <footer style="background-color: #31353f">
-      <div>
-        <div class="social-links">
-          <a href="https://www.linkedin.com/in/anthonysuh/">LinkedIn</a>
-          <a href="https://github.com/antsuh1028">GitHub</a>
-          <a href="https://www.instagram.com/anthonythesuh/">Instagram</a>
-        </div>
-        <p>&copy; 2025 Anthony Suh. All Rights Reserved.</p>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/antsuh1028" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/anthonysuh/" target="_blank"
+          >LinkedIn</a
+        >
+        <a href="https://www.instagram.com/anthonythesuh/" target="_blank"
+          >Instagram</a
+        >
       </div>
+      <p class="footer-credit">Built by Anthony Suh</p>
     </footer>
 
-    <script>
-      // Start typewriter effect
-      document.addEventListener("DOMContentLoaded", function () {
-        // Cursor trail effect
-        const trail = [];
-        const maxTrailLength = 20;
-
-        function createTrailDot(x, y) {
-          const dot = document.createElement("div");
-          dot.className = "trail-dot";
-          dot.style.left = x + "px";
-          dot.style.top = y + "px";
-          document.body.appendChild(dot);
-
-          trail.push(dot);
-
-          if (trail.length > maxTrailLength) {
-            const oldDot = trail.shift();
-            oldDot.remove();
-          }
-
-          // Fade out the dot
-          setTimeout(() => {
-            dot.style.opacity = "0";
-            setTimeout(() => {
-              if (dot.parentNode) {
-                dot.remove();
-              }
-            }, 300);
-          }, 100);
-        }
-
-        document.addEventListener("mousemove", (e) => {
-          createTrailDot(e.clientX, e.clientY);
-        });
-      });
-
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        });
-      });
-
-      // Scroll animations
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.animationPlayState = "running";
-          }
-        });
-      }, observerOptions);
-
-      // Observe timeline items
-      document.querySelectorAll(".timeline-item").forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.2}s`;
-        item.style.animationPlayState = "paused";
-        observer.observe(item);
-      });
-
-      // Header scroll effect
-      window.addEventListener("scroll", () => {
-        const header = document.querySelector("header");
-        if (window.scrollY > 100) {
-          header.style.background = "rgba(255, 255, 255, 0.98)";
-          header.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)";
-        } else {
-          header.style.background = "rgba(255, 255, 255, 0.95)";
-          header.style.boxShadow = "none";
-        }
-      });
-
-      // Form submission
-      document.querySelector("form").addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(this);
-        const name = formData.get("name");
-        const email = formData.get("email");
-        const subject = formData.get("subject");
-        const message = formData.get("message");
-
-        // Simple validation
-        if (!name || !email || !subject || !message) {
-          alert("Please fill in all fields");
-          return;
-        }
-
-        // Create mailto link
-        const mailtoLink = `mailto:ant.suh1028@gmail.com?subject=${encodeURIComponent(
-          subject
-        )}&body=${encodeURIComponent(
-          `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-        )}`;
-
-        // Open default email client
-        window.location.href = mailtoLink;
-
-        // Show success message
-        alert(
-          "Thank you for your message! Your default email client should open now."
-        );
-
-        // Reset form
-        this.reset();
-      });
-
-      // Add loading animation
-      window.addEventListener("load", () => {
-        document.body.style.opacity = "0";
-        document.body.style.transition = "opacity 0.5s ease-in-out";
-
-        setTimeout(() => {
-          document.body.style.opacity = "1";
-        }, 100);
-      });
-
-      // Header scroll effect
-      window.addEventListener("scroll", () => {
-        const header = document.querySelector("header");
-        if (window.scrollY > 100) {
-          header.classList.add("header-scrolled");
-        } else {
-          header.classList.remove("header-scrolled");
-        }
-      });
-
-      function openImageModal(src, alt) {
-        // Create modal if it doesn't exist
-        let modal = document.getElementById("imageModal");
-        if (!modal) {
-          modal = document.createElement("div");
-          modal.id = "imageModal";
-          modal.className = "image-modal";
-          modal.innerHTML = `
-      <span class="close-modal" onclick="closeImageModal()">&times;</span>
-      <div class="modal-content">
-        <img id="modalImage" class="modal-image" src="" alt="">
-      </div>
-      <div id="modalCaption" class="modal-caption"></div>
-    `;
-          document.body.appendChild(modal);
-
-          // Close modal when clicking outside the image
-          modal.onclick = function (event) {
-            if (event.target === modal) {
-              closeImageModal();
-            }
-          };
-
-          // Close modal with Escape key
-          document.addEventListener("keydown", function (event) {
-            if (event.key === "Escape") {
-              closeImageModal();
-            }
-          });
-        }
-
-        // Set image source and caption
-        document.getElementById("modalImage").src = src;
-        document.getElementById("modalImage").alt = alt;
-        document.getElementById("modalCaption").textContent = alt;
-
-        // Show modal
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
-      }
-
-      function closeImageModal() {
-        const modal = document.getElementById("imageModal");
-        if (modal) {
-          modal.style.display = "none";
-          document.body.style.overflow = "auto"; // Restore scrolling
-        }
-      }
-      function animateTimelineOnScroll() {
-        const timeline = document.querySelector(".timeline");
-        const timelineLine = document.querySelector(".timeline-line");
-
-        if (!timeline || !timelineLine) return;
-
-        const timelineRect = timeline.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        // Calculate scroll progress
-        const scrollProgress = Math.max(
-          0,
-          Math.min(
-            1,
-            (windowHeight - timelineRect.top) /
-              (windowHeight + timelineRect.height)
-          )
-        );
-
-        // Set the height of timeline line
-        timelineLine.style.height = `${timelineRect.height * scrollProgress}px`;
-      }
-
-      // Add event listeners
-      window.addEventListener("scroll", animateTimelineOnScroll);
-      window.addEventListener("resize", animateTimelineOnScroll);
-      window.addEventListener("load", animateTimelineOnScroll);
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>

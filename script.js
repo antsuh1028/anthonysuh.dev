@@ -1,278 +1,410 @@
-// Wait for the DOM to be fully loaded
-document.addEventListener("DOMContentLoaded", function () {
-  // Check if the gradient animation is working
-  const computedStyle = window.getComputedStyle(document.body);
-  const hasAnimation = computedStyle.getPropertyValue("animation");
+// ========================================
+// SMOOTH SCROLL FOR NAVIGATION LINKS
+// ========================================
 
-  console.log("Current body animation: ", hasAnimation);
-
-  // If the animation isn't applied, add it manually
-  if (!hasAnimation || hasAnimation === "none") {
-    console.log("No animation detected, applying manually...");
-    document.body.style.background =
-      "linear-gradient(-45deg, #f5f7fa, #d8e2f3, #c3cfe2, #e2e8f0)";
-    document.body.style.backgroundSize = "400% 400%";
-    document.body.style.backgroundAttachment = "fixed";
-    document.body.style.animation = "gradient-animation 15s ease infinite";
-  }
-
-  // Smooth scrolling for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute("href")).scrollIntoView({
-        behavior: "smooth",
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
-    });
-  });
-
-  // Typewriter effect for hero section
-  const typingTextElement = document.getElementById("typing-text");
-  if (typingTextElement) {
-    const texts = [
-      "Web Developer",
-      "Software Engineer",
-      "CS Student at UCI",
-      "Problem Solver",
-      "Tech Enthusiast",
-    ];
-
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typingDelay = 100;
-    const erasingDelay = 50;
-    const newTextDelay = 2000;
-
-    function typeEffect() {
-      const currentText = texts[textIndex];
-
-      if (isDeleting) {
-        typingTextElement.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-      } else {
-        typingTextElement.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-      }
-
-      if (!isDeleting && charIndex === currentText.length) {
-        isDeleting = true;
-        setTimeout(typeEffect, newTextDelay);
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        setTimeout(typeEffect, 500);
-      } else {
-        setTimeout(typeEffect, isDeleting ? erasingDelay : typingDelay);
-      }
-    }
-
-    // Start the typing effect
-    setTimeout(typeEffect, 1000);
-  }
-
-  // Modified scroll effect - only updates the opacity of content but doesn't interfere with gradient
-  window.addEventListener("scroll", function () {
-    const scrollPosition = window.scrollY;
-    const windowHeight = window.innerHeight;
-
-    // Optional: fade effect for the hero section
-    const heroContent = document.querySelector(".hero-content");
-    if (heroContent && scrollPosition < windowHeight) {
-      const opacity = 1 - (scrollPosition / windowHeight) * 0.5;
-      heroContent.style.opacity = Math.max(0.5, opacity);
     }
   });
-
-  // Optional: Animate skill items when they come into view
-  const animateOnScroll = function () {
-    const skillCategories = document.querySelectorAll(".skills-category");
-
-    skillCategories.forEach((category) => {
-      const categoryPosition = category.getBoundingClientRect().top;
-      const screenPosition = window.innerHeight / 1.3;
-
-      if (categoryPosition < screenPosition) {
-        category.style.opacity = "1";
-        category.style.transform = "translateY(0)";
-      }
-    });
-  };
-
-  // Set initial state for skill categories
-  document.querySelectorAll(".skills-category").forEach((category) => {
-    category.style.opacity = "0";
-    category.style.transform = "translateY(20px)";
-    category.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-  });
-
-  // Run the animation check on scroll
-  window.addEventListener("scroll", animateOnScroll);
-
-  // Run it once on load
-  animateOnScroll();
-
-  // Particles background for hero section
-  setupParticles();
-
-  // Custom cursor for hero section
-  setupCustomCursor();
 });
 
-// Particles background effect
-function setupParticles() {
-  const particlesContainer = document.getElementById("particles-js");
-  if (!particlesContainer) return;
+// ========================================
+// HERO ANIMATIONS ON LOAD
+// ========================================
 
-  const canvas = document.createElement("canvas");
-  particlesContainer.appendChild(canvas);
-  canvas.width = particlesContainer.offsetWidth;
-  canvas.height = particlesContainer.offsetHeight;
+window.addEventListener('load', () => {
+  // Trigger hero animations with a slight delay for page load
+  setTimeout(() => {
+    document.querySelector('.hero-greeting')?.classList.add('animate');
+    document.querySelector('.hero-name')?.classList.add('animate');
+    document.querySelector('.hero-tagline')?.classList.add('animate');
+    document.querySelector('.hero-description')?.classList.add('animate');
+    document.querySelector('.hero-links')?.classList.add('animate');
+    document.querySelector('.hero-image')?.classList.add('animate');
+  }, 100);
+});
 
-  // Get canvas context
-  const ctx = canvas.getContext("2d");
+// ========================================
+// SCROLL REVEAL ANIMATION
+// ========================================
 
-  // Particles array
-  let particles = [];
+const observerOptions = {
+  threshold: 0.15,
+  rootMargin: '0px 0px -50px 0px'
+};
 
-  // Particle class
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = Math.random() * 1 - 0.5;
-      this.speedY = Math.random() * 1 - 0.5;
-      this.color = `rgba(0, 120, 255, ${Math.random() * 0.3 + 0.1})`;
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Optional: unobserve after animation to save resources
+      // observer.unobserve(entry.target);
     }
+  });
+}, observerOptions);
 
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
+// Observe all section contents
+document.querySelectorAll('.section-content').forEach(section => {
+  observer.observe(section);
+});
 
-      // Bounce off edges
-      if (this.x > canvas.width || this.x < 0) {
-        this.speedX = -this.speedX;
-      }
+// Also observe contact content separately
+document.querySelectorAll('.contact-content').forEach(section => {
+  observer.observe(section);
+});
 
-      if (this.y > canvas.height || this.y < 0) {
-        this.speedY = -this.speedY;
-      }
+// ========================================
+// NAVBAR SCROLL EFFECT
+// ========================================
+
+let lastScrollY = window.scrollY;
+const nav = document.querySelector('.nav');
+let navHidden = false;
+
+window.addEventListener('scroll', () => {
+  const currentScrollY = window.scrollY;
+  
+  // Add shadow when scrolled
+  if (currentScrollY > 50) {
+    nav.style.boxShadow = '0 10px 30px -10px rgba(0, 0, 0, 0.3)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+  
+  // Hide/show navbar on scroll direction (optional - comment out if not wanted)
+  /*
+  if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    nav.style.transform = 'translateY(-100%)';
+  } else {
+    nav.style.transform = 'translateY(0)';
+  }
+  */
+  
+  lastScrollY = currentScrollY;
+});
+
+// ========================================
+// ACTIVE NAV LINK HIGHLIGHTING
+// ========================================
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    
+    if (window.scrollY >= sectionTop - 200) {
+      current = section.getAttribute('id');
     }
+  });
+  
+  navLinks.forEach(link => {
+    link.style.color = '';
+    if (link.getAttribute('href') === `#${current}`) {
+      link.style.color = '#00bfff';
+    }
+  });
+});
 
-    draw() {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
+// ========================================
+// CURSOR GLOW EFFECT (Desktop Only)
+// ========================================
+
+if (window.innerWidth > 768) {
+  const cursorGlow = document.createElement('div');
+  cursorGlow.classList.add('cursor-glow');
+  document.body.appendChild(cursorGlow);
+  
+  let mouseX = 0;
+  let mouseY = 0;
+  let glowX = 0;
+  let glowY = 0;
+  
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  
+  // Smooth follow animation
+  function animateGlow() {
+    glowX += (mouseX - glowX) * 0.1;
+    glowY += (mouseY - glowY) * 0.1;
+    
+    cursorGlow.style.left = glowX + 'px';
+    cursorGlow.style.top = glowY + 'px';
+    
+    requestAnimationFrame(animateGlow);
+  }
+  
+  animateGlow();
+  
+  // Hide glow when mouse leaves window
+  document.addEventListener('mouseleave', () => {
+    cursorGlow.style.opacity = '0';
+  });
+  
+  document.addEventListener('mouseenter', () => {
+    cursorGlow.style.opacity = '1';
+  });
+}
+
+
+// ========================================
+// TYPING EFFECT FOR TAGLINE (Optional)
+// ========================================
+
+/*
+function typeWriter(element, text, speed = 50) {
+  let i = 0;
+  element.textContent = '';
+  
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
     }
   }
+  
+  type();
+}
 
-  // Initialize particles
-  function init() {
-    particles = [];
-    const particleCount = Math.min(
-      Math.floor((canvas.width * canvas.height) / 10000),
-      100
+// Uncomment to enable typing effect
+// window.addEventListener('load', () => {
+//   const tagline = document.querySelector('.hero-tagline');
+//   const text = tagline.textContent;
+//   setTimeout(() => typeWriter(tagline, text, 50), 600);
+// });
+*/
+
+// ========================================
+// PARALLAX EFFECT ON HERO IMAGE (Subtle)
+// ========================================
+
+if (window.innerWidth > 768) {
+  const heroImage = document.querySelector('.hero-image-wrapper');
+  
+  if (heroImage) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const rate = scrolled * 0.1;
+      
+      if (scrolled < window.innerHeight) {
+        heroImage.style.transform = `translateY(${rate}px)`;
+      }
+    });
+  }
+}
+// ========================================
+// HERO IMAGE CAROUSEL
+// ========================================
+
+const carouselImages = document.querySelectorAll('.hero-carousel img');
+const indicators = document.querySelectorAll('.indicator');
+let currentSlide = 0;
+let carouselInterval;
+
+function showSlide(index) {
+  carouselImages.forEach(img => img.classList.remove('active'));
+  indicators.forEach(ind => ind.classList.remove('active'));
+  
+  currentSlide = index;
+  if (currentSlide >= carouselImages.length) currentSlide = 0;
+  if (currentSlide < 0) currentSlide = carouselImages.length - 1;
+  
+  carouselImages[currentSlide].classList.add('active');
+  indicators[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  showSlide(currentSlide + 1);
+}
+
+function startCarousel() {
+  carouselInterval = setInterval(nextSlide, 4000);
+}
+
+// Click indicators to change slide
+indicators.forEach((indicator, index) => {
+  indicator.addEventListener('click', () => {
+    showSlide(index);
+    clearInterval(carouselInterval);
+    startCarousel();
+  });
+});
+
+// Pause on hover
+const heroImageWrapper = document.querySelector('.hero-image-wrapper');
+if (heroImageWrapper) {
+  heroImageWrapper.addEventListener('mouseenter', () => {
+    clearInterval(carouselInterval);
+  });
+  
+  heroImageWrapper.addEventListener('mouseleave', () => {
+    startCarousel();
+  });
+}
+
+// Start carousel
+if (carouselImages.length > 1) {
+  startCarousel();
+}
+
+// ========================================
+// HYBRID COLLISION: TEXT + BORDERS
+// ========================================
+
+let player = null;
+let playerX = 100;
+let playerY = 100;
+let velocityX = 0;
+let velocityY = 0;
+let isOnGround = false;
+let jumpCount = 0; 
+let keys = {};
+let gameLoop = null;
+
+const GRAVITY = 0.8;
+const MOVE_SPEED = 7;
+const JUMP_FORCE = 15; 
+const FRICTION = 0.8;
+const MAX_JUMPS = 2; 
+
+document.getElementById('spawn-character').addEventListener('click', () => {
+  if (player) {
+    player.remove();
+    player = null;
+    if (gameLoop) cancelAnimationFrame(gameLoop);
+    return;
+  }
+
+  player = document.createElement('div');
+  player.className = 'player';
+  Object.assign(player.style, {
+    position: 'fixed',
+    width: '32px',
+    height: '32px',
+    backgroundColor: '#00bfff',
+    borderRadius: '4px',
+    zIndex: '10000',
+    pointerEvents: 'none',
+    boxShadow: '0 0 15px rgba(0, 191, 255, 0.6)',
+    border: '2px solid white'
+  });
+  
+  document.body.appendChild(player);
+  playerX = window.innerWidth / 2;
+  playerY = 50;
+  runGameLoop();
+});
+
+window.addEventListener('keydown', (e) => {
+  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) e.preventDefault();
+  if ((e.key === 'ArrowUp' || e.key === ' ' || e.key.toLowerCase() === 'w') && jumpCount < MAX_JUMPS) {
+    velocityY = -JUMP_FORCE;
+    isOnGround = false;
+    jumpCount++;
+  }
+  keys[e.key] = true;
+});
+
+window.addEventListener('keyup', (e) => keys[e.key] = false);
+
+function runGameLoop() {
+  if (!player) return;
+
+  // Horizontal Movement
+  if (keys['ArrowLeft'] || keys['a'] || keys['A']) {
+    velocityX = -MOVE_SPEED;
+    player.style.transform = `scaleX(-1)`;
+  } else if (keys['ArrowRight'] || keys['d'] || keys['D']) {
+    velocityX = MOVE_SPEED;
+    player.style.transform = `scaleX(1)`;
+  } else {
+    velocityX *= FRICTION;
+  }
+
+  velocityY += GRAVITY;
+  playerX += velocityX;
+  playerY += velocityY;
+
+  // Screen wrap & respawn
+  if (playerX < -32) playerX = window.innerWidth;
+  if (playerX > window.innerWidth) playerX = -32;
+  if (playerY > window.innerHeight + 100) {
+    playerY = -50;
+    playerX = window.innerWidth / 2;
+    velocityY = 0;
+  }
+
+  let groundedThisFrame = false;
+  const isDropping = keys['ArrowDown'] || keys['s'] || keys['S'];
+
+  if (!isDropping) {
+    // 1. SELECT EVERYTHING THAT SHOULD BE SOLID
+    // We target text elements AND all the "box" containers from your HTML
+    const platforms = document.querySelectorAll(
+      'h1, h2, h3, p, li, span, a, button, img, ' + 
+      '.project-card, .skill-category, .experience-item, ' +
+      '.nav-content, .hero-image-border, .contact-button'
     );
+    
+    platforms.forEach(el => {
+      let rect;
+      
+      // LOGIC: If it's a card, button, or image, use the FULL box (including borders/padding)
+      const isBox = el.matches('.project-card, .skill-category, .experience-item, .nav-content, .hero-image-border, button, .contact-button, img');
+      
+      if (!isBox && el.childNodes.length > 0) {
+        // If it's just raw text (h1, p, etc.), use the precision range to avoid floating in white space
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        rect = range.getBoundingClientRect();
+      } else {
+        // For containers and cards, use the actual visual box
+        rect = el.getBoundingClientRect();
+      }
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-  }
+      const pWidth = 32;
+      const pHeight = 32;
 
-  // Connect particles with lines
-  function connect() {
-    const maxDistance = 150;
-    for (let a = 0; a < particles.length; a++) {
-      for (let b = a; b < particles.length; b++) {
-        const dx = particles[a].x - particles[b].x;
-        const dy = particles[a].y - particles[b].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < maxDistance) {
-          // Draw line with opacity based on distance
-          const opacity = 1 - distance / maxDistance;
-          ctx.strokeStyle = `rgba(0, 120, 255, ${opacity * 0.2})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(particles[a].x, particles[a].y);
-          ctx.lineTo(particles[b].x, particles[b].y);
-          ctx.stroke();
+      // Ensure the box isn't a giant empty section (Safety check)
+      if (rect.width > 0 && rect.height > 0 && rect.height < window.innerHeight * 0.9) {
+        if (playerX + pWidth > rect.left && playerX < rect.right) {
+          if (
+            velocityY > 0 && 
+            playerY + pHeight >= rect.top && 
+            playerY + pHeight <= rect.top + velocityY + 10
+          ) {
+            playerY = rect.top - pHeight;
+            velocityY = 0;
+            groundedThisFrame = true;
+          }
         }
       }
-    }
+    });
   }
 
-  // Animation loop
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw();
-    }
-
-    connect();
-    requestAnimationFrame(animate);
+  if (groundedThisFrame) {
+    isOnGround = true;
+    jumpCount = 0;
+  } else {
+    isOnGround = false;
   }
 
-  // Handle window resize
-  window.addEventListener("resize", function () {
-    canvas.width = particlesContainer.offsetWidth;
-    canvas.height = particlesContainer.offsetHeight;
-    init();
-  });
+  player.style.left = playerX + 'px';
+  player.style.top = playerY + 'px';
 
-  // Mouse interaction
-  let mouse = {
-    x: null,
-    y: null,
-    radius: 100,
-  };
-
-  canvas.addEventListener("mousemove", function (event) {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = event.clientX - rect.left;
-    mouse.y = event.clientY - rect.top;
-
-    // Repel particles from mouse
-    for (let i = 0; i < particles.length; i++) {
-      const dx = particles[i].x - mouse.x;
-      const dy = particles[i].y - mouse.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < mouse.radius) {
-        const forceX = (dx / distance) * 2;
-        const forceY = (dy / distance) * 2;
-        particles[i].x += forceX;
-        particles[i].y += forceY;
-      }
-    }
-  });
-  // Create cursor shine element
-const cursorShine = document.createElement('div');
-cursorShine.className = 'cursor-shine';
-document.body.appendChild(cursorShine);
-
-// Track mouse movement
-document.addEventListener('mousemove', (e) => {
-    cursorShine.style.left = e.clientX + 'px';
-    cursorShine.style.top = e.clientY + 'px';
-    cursorShine.style.opacity = '1';
-});
-
-// Hide when mouse leaves the window
-document.addEventListener('mouseleave', () => {
-    cursorShine.style.opacity = '0';
-});
-
-// Show when mouse enters the window
-document.addEventListener('mouseenter', () => {
-    cursorShine.style.opacity = '1';
-});
-
-  // Start animation
-  init();
-  animate();
+  gameLoop = requestAnimationFrame(runGameLoop);
 }
