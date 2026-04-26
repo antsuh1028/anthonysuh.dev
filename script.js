@@ -1,4 +1,15 @@
 // ========================================
+// SCROLL PROGRESS BAR
+// ========================================
+
+const scrollProgress = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  scrollProgress.style.width = (scrollTop / scrollHeight * 100) + '%';
+}, { passive: true });
+
+// ========================================
 // SMOOTH SCROLL FOR NAVIGATION LINKS
 // ========================================
 
@@ -271,21 +282,115 @@ let playerY = 100;
 let velocityX = 0;
 let velocityY = 0;
 let isOnGround = false;
-let jumpCount = 0; 
+let jumpCount = 0;
 let keys = {};
 let gameLoop = null;
 
 const GRAVITY = 0.8;
 const MOVE_SPEED = 7;
-const JUMP_FORCE = 15; 
+const JUMP_FORCE = 15;
 const FRICTION = 0.8;
-const MAX_JUMPS = 2; 
+const MAX_JUMPS = 2;
 
-document.getElementById('spawn-character').addEventListener('click', () => {
+// ---- Coin system ----
+let coins = [];
+let coinScore = 0;
+let coinDisplay = null;
+
+// Sit a coin on top of a given element at a random X within its bounds.
+// Returns document-space {x, y} coords.
+function coinDocPos(el) {
+  const rect = el.getBoundingClientRect();
+  const docTop = rect.top + window.scrollY;
+  const docLeft = rect.left + window.scrollX;
+  const x = docLeft + 8 + Math.random() * Math.max(rect.width - 32, 0);
+  const y = docTop - 22; // sit just above the element surface
+  return { x, y };
+}
+
+function spawnCoins() {
+  coins.forEach(c => c.el.remove());
+  coins = [];
+
+  const targets = Array.from(document.querySelectorAll(
+    '.project-card, .experience-item, .skill-category, ' +
+    '.section-title, .hero-name, .hero-tagline, .contact-button'
+  )).filter(el => {
+    const r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0;
+  });
+
+  // Shuffle and pick one coin per element (up to 12)
+  const picked = targets.sort(() => Math.random() - 0.5).slice(0, 12);
+
+  picked.forEach(el => {
+    const { x, y } = coinDocPos(el);
+    const coin = document.createElement('div');
+    coin.className = 'coin';
+    coin.style.setProperty('--delay', (Math.random() * 2) + 's');
+    coin.style.position = 'absolute';
+    coin.style.left = x + 'px';
+    coin.style.top = y + 'px';
+    document.body.appendChild(coin);
+    coins.push({ el: coin, docX: x, docY: y, collected: false });
+  });
+
+  if (coinDisplay) updateCoinDisplay();
+}
+
+function removeCoins() {
+  coins.forEach(c => c.el.remove());
+  coins = [];
+  if (coinDisplay) { coinDisplay.remove(); coinDisplay = null; }
+  coinScore = 0;
+}
+
+function createCoinDisplay() {
+  coinDisplay = document.createElement('div');
+  coinDisplay.id = 'coin-display';
+  document.body.appendChild(coinDisplay);
+  updateCoinDisplay();
+}
+
+function updateCoinDisplay() {
+  if (coinDisplay) coinDisplay.textContent = `🪙 ${coinScore} / ${coins.length}`;
+}
+
+function checkCoinCollisions() {
+  if (!player) return;
+  const pRight = playerX + 32, pBottom = playerY + 32;
+
+  coins.forEach(coin => {
+    if (coin.collected) return;
+    // Convert document coords → viewport coords for comparison with fixed player
+    const vx = coin.docX - window.scrollX;
+    const vy = coin.docY - window.scrollY;
+    if (pRight > vx && playerX < vx + 16 && pBottom > vy && playerY < vy + 16) {
+      coin.collected = true;
+      coinScore++;
+      updateCoinDisplay();
+      coin.el.classList.add('coin-collect');
+      setTimeout(() => coin.el.remove(), 400);
+    }
+  });
+
+  if (coins.length > 0 && coins.every(c => c.collected)) {
+    setTimeout(() => {
+      if (player) { coinScore = 0; spawnCoins(); updateCoinDisplay(); }
+    }, 700);
+  }
+}
+// ---------------------
+
+const spawnBtn = document.getElementById('spawn-character');
+
+spawnBtn.addEventListener('click', () => {
   if (player) {
     player.remove();
     player = null;
     if (gameLoop) cancelAnimationFrame(gameLoop);
+    removeCoins();
+    spawnBtn.textContent = 'Spawn lil guy';
     return;
   }
 
@@ -302,10 +407,16 @@ document.getElementById('spawn-character').addEventListener('click', () => {
     boxShadow: '0 0 15px rgba(0, 191, 255, 0.6)',
     border: '2px solid white'
   });
-  
+
   document.body.appendChild(player);
   playerX = window.innerWidth / 2;
   playerY = 50;
+
+  coinScore = 0;
+  spawnCoins();
+  createCoinDisplay();
+  spawnBtn.textContent = 'Despawn lil guy';
+
   runGameLoop();
 });
 
@@ -405,6 +516,8 @@ function runGameLoop() {
 
   player.style.left = playerX + 'px';
   player.style.top = playerY + 'px';
+
+  checkCoinCollisions();
 
   gameLoop = requestAnimationFrame(runGameLoop);
 }

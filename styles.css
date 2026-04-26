@@ -3,18 +3,33 @@
    ======================================== */
 
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-card: #161616;
-  --text-primary: #e4e4e7;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent: #00a2ff;
-  --accent-hover: #00d0ff;
-  --border: #27272a;
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-card: #1c2128;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  --accent: #58a6ff;
+  --accent-hover: #79c0ff;
+  --border: #30363d;
   --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* ========================================
+   SCROLL PROGRESS BAR
+   ======================================== */
+
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  z-index: 9999;
+  transition: width 0.1s linear;
 }
 
 /* ========================================
@@ -1086,4 +1101,51 @@ ul {
 .spawn-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 20px rgba(0, 162, 255, 0.4);
+}
+
+/* ========================================
+   COIN SYSTEM
+   ======================================== */
+
+.coin {
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle at 38% 35%, #ffe566, #f5a623 60%, #c97d10);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 210, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  z-index: 9999;
+  pointer-events: none;
+  animation: coin-float 2s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes coin-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+.coin-collect {
+  animation: coin-pop 0.4s ease-out forwards !important;
+}
+
+@keyframes coin-pop {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(2);   opacity: 0.8; }
+  100% { transform: scale(0);   opacity: 0; }
+}
+
+#coin-display {
+  position: fixed;
+  bottom: 72px;
+  right: 24px;
+  background: rgba(13, 17, 23, 0.88);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #ffd700;
+  z-index: 10001;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
 }

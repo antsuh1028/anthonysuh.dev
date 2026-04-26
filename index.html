@@ -14,6 +14,9 @@
     />
   </head>
   <body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
     <!-- Navigation -->
     <nav class="nav">
       <div class="nav-content">
@@ -142,30 +145,32 @@
             </div>
             <ul class="experience-details">
               <li>
-                Built B2B full-stack platform using Next.js, React, and
-                Tailwind, facilitating $10,000 in wholesale orders
+                Architected and shipped production B2B wholesale platform with
+                React, TypeScript, and Tailwind, enabling 15+ restaurant clients
+                to browse inventory and manage invoices online, replacing
+                phone and email-based ordering
               </li>
               <li>
-                Architected order processing pipeline with Node and Express,
-                creating 10+ RESTful API endpoints and reducing processing time
-                by 35%
+                Engineered Node.js/Express backend and PostgreSQL schema handling
+                concurrent order updates across 300+ SKUs, reducing order
+                processing time by 40% and eliminating manual fulfillment
+                bottlenecks
               </li>
               <li>
-                Integrated AWS S3 for image/document storage and deployed the
-                application on AWS Lightsail
-              </li>
-              <li>
-                Created admin dashboard and ordering system used to onboard 10+
-                restaurant clients
+                Deployed on AWS EC2 with S3 asset storage and Docker
+                containerization, building admin dashboard for real-time order
+                tracking
               </li>
             </ul>
             <div class="experience-tech">
-              <span>Next.js</span>
               <span>React</span>
+              <span>TypeScript</span>
               <span>Tailwind</span>
               <span>Node.js</span>
               <span>Express</span>
-              <span>AWS S3</span>
+              <span>PostgreSQL</span>
+              <span>AWS EC2</span>
+              <span>Docker</span>
             </div>
           </div>
 
@@ -173,10 +178,10 @@
           <div class="experience-item">
             <div class="experience-header">
               <div class="experience-logo">
-                <img src="./images/sunstone.png" alt="AdamsFoods Logo" />
+                <img src="./images/sunstone.png" alt="Sunstone Cities Logo" />
               </div>
               <div class="experience-title-row">
-                <h3 class="experience-role">Project Software Developer</h3>
+                <h3 class="experience-role">Software Engineer</h3>
                 <span class="experience-company">
                   <a
                     href="https://sunstonecities.com/"
@@ -186,26 +191,27 @@
                   >
                 </span>
               </div>
-              <span class="experience-date">Sep 2025 — Present</span>
+              <span class="experience-date">Sep 2025 — Mar 2026</span>
             </div>
             <ul class="experience-details">
               <li>
-                Built Python/FastAPI backend processing Census Bureau data for
-                400+ cities to automate economic report generation
+                Built Python and FastAPI backend with a Retrieval-Augmented
+                Generation pipeline for large-scale automated content
+                generation, reducing report production time from hours of
+                manual research to seconds per output
               </li>
               <li>
-                Integrated OpenAI API for AI-powered economic insights and
-                analysis in generated reports
-              </li>
-              <li>
-                Developed data pipeline with multi-year fallback logic, parsing
-                JSON and generating PDF reports
+                Integrated OpenAI embeddings and vector similarity search across
+                structured datasets, enabling semantic retrieval that surfaced
+                relevant context for downstream LLM-driven content generation
               </li>
             </ul>
             <div class="experience-tech">
               <span>Python</span>
               <span>FastAPI</span>
+              <span>RAG</span>
               <span>OpenAI API</span>
+              <span>Vector Search</span>
             </div>
           </div>
 
@@ -213,7 +219,7 @@
           <div class="experience-item">
             <div class="experience-header">
               <div class="experience-logo">
-                <img src="./images/ctc.png" alt="AdamsFoods Logo" />
+                <img src="./images/ctc.png" alt="Commit the Change Logo" />
               </div>
               <div class="experience-title-row">
                 <h3 class="experience-role">Software Engineer</h3>
@@ -230,22 +236,29 @@
             </div>
             <ul class="experience-details">
               <li>
-                Built full-stack React web app with Express and PostgreSQL for
-                cultural center operations
+                Delivered React and TypeScript web app for La Peña Cultural
+                Center, a nonprofit reaching 25,000+ community members,
+                automating 60% of manual financial workflows across departments
               </li>
               <li>
-                Automated invoice generation and event management for 50+
-                monthly events
+                Built scalable REST API with Node.js, Express, and PostgreSQL,
+                integrating Google Calendar API to sync event-driven payment
+                schedules for real-time program revenue tracking
               </li>
               <li>
-                Reduced administrative workload by 60% through backend
-                optimization
+                Automated invoice generation pipeline with Gmail API and
+                Nodemailer using custom PDF templates, eliminating 4+ hours of
+                weekly billing overhead
               </li>
             </ul>
             <div class="experience-tech">
               <span>React</span>
+              <span>TypeScript</span>
+              <span>Node.js</span>
               <span>Express</span>
               <span>PostgreSQL</span>
+              <span>Google Calendar API</span>
+              <span>Gmail API</span>
             </div>
           </div>
 
@@ -327,6 +340,62 @@
               </div>
               <div class="project-links">
                 <a
+                  href="https://github.com/antsuh1028"
+                  target="_blank"
+                  aria-label="GitHub"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">PocketZot</h3>
+            <p class="project-award">🏆 Best Neuro Hack — IrvineHacks 2026</p>
+            <p class="project-description">
+              AI Cognitive Offloading Assistant — Chrome extension that
+              classifies cognitive offloading behavior in real time using a
+              fine-tuned GPT-4o mini model. Built Chrome Extension architecture
+              (content scripts, background services, popup UI) with React and a
+              PostgreSQL backend storing 300+ behavioral events.
+            </p>
+            <div class="project-tech-list">
+              <span>React</span>
+              <span>FastAPI</span>
+              <span>PostgreSQL</span>
+              <span>GPT-4o mini</span>
+              <span>Chrome Extension</span>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card">
+            <div class="project-top">
+              <div class="project-folder">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="40"
+                  height="40"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="project-links">
+                <a
                   href="https://github.com/Geoffrey0953/Web-Jam-Hackathon"
                   target="_blank"
                   aria-label="GitHub"
@@ -362,7 +431,7 @@
             </div>
           </div>
 
-          <!-- Project 2 -->
+          <!-- Project 3 -->
           <div class="project-card">
             <div class="project-top">
               <div class="project-folder">
@@ -483,11 +552,13 @@
           <div class="skill-category">
             <h3>Languages</h3>
             <ul>
-              <li>JavaScript / TypeScript</li>
+              <li>TypeScript / JavaScript</li>
               <li>Python</li>
               <li>Java</li>
+              <li>SQL</li>
               <li>C++</li>
               <li>HTML / CSS</li>
+              <li>Bash</li>
             </ul>
           </div>
           <div class="skill-category">
@@ -497,26 +568,26 @@
               <li>Node.js / Express</li>
               <li>FastAPI</li>
               <li>Tailwind CSS</li>
-              <li>PyTorch</li>
+              <li>REST APIs</li>
             </ul>
           </div>
           <div class="skill-category">
             <h3>Cloud & Databases</h3>
             <ul>
-              <li>AWS (EC2, S3, Lightsail)</li>
+              <li>AWS (EC2, S3, Lambda, Lightsail)</li>
               <li>PostgreSQL</li>
               <li>MongoDB</li>
-              <li>Firebase</li>
+              <li>Redis</li>
+              <li>OpenAI API / RAG</li>
             </ul>
           </div>
           <div class="skill-category">
             <h3>Tools</h3>
             <ul>
-              <li>Docker / Kubernetes</li>
+              <li>Docker</li>
               <li>Git / GitHub</li>
-              <li>Linux</li>
-              <li>Vite</li>
-              <li>Figma</li>
+              <li>Unix / Linux</li>
+              <li>Claude Code</li>
             </ul>
           </div>
         </div>
