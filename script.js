@@ -286,9 +286,9 @@ let jumpCount = 0;
 let keys = {};
 let gameLoop = null;
 
-const GRAVITY = 0.8;
+const GRAVITY = 0.4;
 const MOVE_SPEED = 7;
-const JUMP_FORCE = 15;
+const JUMP_FORCE = 11;
 const FRICTION = 0.8;
 const MAX_JUMPS = 2;
 
