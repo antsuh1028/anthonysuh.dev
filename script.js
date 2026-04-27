@@ -296,6 +296,7 @@ const MAX_JUMPS = 2;
 let coins = [];
 let coinScore = 0;
 let coinDisplay = null;
+let celebrating = false;
 
 // Sit a coin on top of a given element at a random X within its bounds.
 // Returns document-space {x, y} coords.
@@ -374,11 +375,21 @@ function checkCoinCollisions() {
     }
   });
 
-  if (coins.length > 0 && coins.every(c => c.collected)) {
+  if (!celebrating && coins.length > 0 && coins.every(c => c.collected)) {
+    celebrating = true;
+    celebrate();
     setTimeout(() => {
-      if (player) { coinScore = 0; spawnCoins(); updateCoinDisplay(); }
-    }, 700);
+      if (player) { coinScore = 0; celebrating = false; spawnCoins(); updateCoinDisplay(); }
+    }, 2200);
   }
+}
+
+function celebrate() {
+  const toast = document.createElement('div');
+  toast.id = 'coin-toast';
+  toast.textContent = '🎉 YOU GOT EM ALL!';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
 }
 // ---------------------
 
