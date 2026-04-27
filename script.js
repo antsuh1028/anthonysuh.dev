@@ -1,4 +1,23 @@
 // ========================================
+// RAIN
+// ========================================
+
+(function initRain() {
+  const container = document.getElementById('rain');
+  const COUNT = 70;
+  for (let i = 0; i < COUNT; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'rain-drop';
+    drop.style.left = (Math.random() * 100) + '%';
+    drop.style.height = (18 + Math.random() * 28) + 'px';
+    drop.style.opacity = 0.35 + Math.random() * 0.45;
+    drop.style.animationDuration = (0.4 + Math.random() * 0.6) + 's';
+    drop.style.animationDelay = -(Math.random() * 2) + 's';
+    container.appendChild(drop);
+  }
+})();
+
+// ========================================
 // SCROLL PROGRESS BAR
 // ========================================
 
@@ -401,6 +420,10 @@ spawnBtn.addEventListener('click', () => {
     player = null;
     if (gameLoop) cancelAnimationFrame(gameLoop);
     removeCoins();
+    const rain = document.getElementById('rain');
+    rain.classList.remove('active');
+    rain.classList.add('fading');
+    setTimeout(() => rain.classList.remove('fading'), 2600);
     spawnBtn.textContent = 'Spawn lil guy';
     return;
   }
@@ -426,6 +449,9 @@ spawnBtn.addEventListener('click', () => {
   coinScore = 0;
   spawnCoins();
   createCoinDisplay();
+  const rain = document.getElementById('rain');
+  rain.classList.remove('fading');
+  rain.classList.add('active');
   spawnBtn.textContent = 'Despawn lil guy';
 
   runGameLoop();

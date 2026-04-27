@@ -18,6 +18,42 @@
 }
 
 /* ========================================
+   RAIN
+   ======================================== */
+
+#rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.0s ease;
+}
+
+#rain.active {
+  opacity: 1;
+}
+
+#rain.fading {
+  opacity: 0;
+  transition: opacity 2.5s ease;
+}
+
+.rain-drop {
+  position: absolute;
+  top: -30px;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(160, 210, 255, 0.85));
+  border-radius: 1px;
+  animation: rain-fall linear infinite;
+}
+
+@keyframes rain-fall {
+  to { transform: translateY(110vh); }
+}
+
+/* ========================================
    SCROLL PROGRESS BAR
    ======================================== */
 
