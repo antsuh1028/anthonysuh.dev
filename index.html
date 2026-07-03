@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -17,10 +17,7 @@
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress"></div>
 
-    <!-- Rain -->
-    <div id="rain"></div>
-
-    <!-- Navigation -->
+    <!-- OLD navigation — replaced by the dock below
     <nav class="nav">
       <div class="nav-content">
         <a href="#" class="nav-logo">AS</a>
@@ -38,19 +35,69 @@
         >
       </div>
     </nav>
+    -->
+
+    <!-- Dock navigation (macOS style) -->
+    <div class="dock-panel" role="toolbar" aria-label="Site navigation">
+      <a class="dock-item" href="#home" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span class="dock-label">Home</span>
+      </a>
+      <a class="dock-item" href="#experience" aria-label="Experience">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+        <span class="dock-label">Experience</span>
+      </a>
+      <a class="dock-item" href="#projects" aria-label="Projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="dock-label">Projects</span>
+      </a>
+      <a class="dock-item" href="#skills" aria-label="Skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <span class="dock-label">Skills</span>
+      </a>
+      <a class="dock-item" href="#contact" aria-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <span class="dock-label">Contact</span>
+      </a>
+      <a class="dock-item" href="./documents/AnthonySuh_Resume (2).pdf" target="_blank" aria-label="Resume">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        <span class="dock-label">Resume</span>
+      </a>
+    </div>
+
+    <!-- Wooden sign in the snow: controls hint -->
+    <div id="mii-sign">← ↑ → / WASD<br />to move the lil guy</div>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="hero-content">
-        <button id="spawn-character" class="spawn-btn">Spawn lil guy</button>
+        <button id="spawn-character" class="spawn-btn">Snowflake hunt ❄</button>
         <div class="hero-main">
           <div class="hero-text">
             <p class="hero-greeting">Hi, my name is</p>
             <h1 class="hero-name">Anthony Suh</h1>
             <h2 class="hero-tagline">I build products that make an impact.</h2>
             <p class="hero-description">
-              I'm a senior Computer Science student at UC Irvine graduating in
-              June 2026. I specialize in building full-stack applications that
+              I'm a recent Computer Science grad at UC Irvine (Class of 2026!!!). I specialize in building full-stack applications that
               solve real problems and make people's lives easier.
             </p>
             <div class="hero-links">
@@ -101,23 +148,45 @@
             </div>
           </div>
           <div class="hero-image">
-            <div class="hero-image-wrapper">
-              <div class="hero-carousel">
-                <img src="./images/grad.jpg" alt="Anthony Suh" class="active" />
-                <img src="./images/profile2.jpg" alt="Anthony Suh" />
-                <img src="./images/profile3.jpg" alt="Anthony Suh" />
+            <div class="bounce-cards" id="bounce-cards">
+              <div class="bounce-card" style="transform: rotate(10deg) translateX(-110px)">
+                <div class="bounce-card-inner">
+                  <img src="./images/JP2.jpg" alt="Anthony Suh in Tokyo" />
+                  <span class="bounce-caption">tokyo</span>
+                </div>
               </div>
-              <div class="hero-image-border"></div>
-            </div>
-            <div class="carousel-indicators">
-              <span class="indicator active"></span>
-              <span class="indicator"></span>
-              <span class="indicator"></span>
+              <div class="bounce-card" style="transform: rotate(5deg) translateX(-55px)">
+                <div class="bounce-card-inner">
+                  <img src="./images/profile2.jpg" alt="Anthony Suh in Seattle" />
+                  <span class="bounce-caption">seattle</span>
+                </div>
+              </div>
+              <div class="bounce-card" style="transform: rotate(-3deg)">
+                <div class="bounce-card-inner">
+                  <img src="./images/grad.jpg" alt="Anthony Suh at graduation" />
+                  <span class="bounce-caption">graduation</span>
+                </div>
+              </div>
+              <div class="bounce-card" style="transform: rotate(-10deg) translateX(55px)">
+                <div class="bounce-card-inner">
+                  <img src="./images/profile3.jpg" alt="Anthony Suh downtown" />
+                  <span class="bounce-caption">downtown</span>
+                </div>
+              </div>
+              <div class="bounce-card" style="transform: rotate(2deg) translateX(110px)">
+                <div class="bounce-card-inner">
+                  <img src="./images/image0.jpg" alt="Tokyo Skytree" />
+                  <span class="bounce-caption">skytree</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Tech logo loop -->
+    
 
     <!-- Experience Section -->
     <section id="experience" class="section">
@@ -315,12 +384,15 @@
     </section>
 
     <!-- Projects Section -->
+     
     <section id="projects" class="section">
+
+      
       <div class="section-content">
         <h2 class="section-title">
           <span class="section-number">02.</span> Projects
         </h2>
-
+        
         <div class="projects-grid">
           <!-- Project 1 -->
           <div class="project-card featured">
@@ -546,6 +618,28 @@
 
     <!-- Skills Section -->
     <section id="skills" class="section">
+
+      <div class="logo-loop" aria-label="Technologies I work with">
+      <div class="logo-track">
+        <div class="logo-set">
+          <img src="https://cdn.simpleicons.org/react/8892b0" alt="React" title="React" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/nextdotjs/8892b0" alt="Next.js" title="Next.js" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/typescript/8892b0" alt="TypeScript" title="TypeScript" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/javascript/8892b0" alt="JavaScript" title="JavaScript" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/python/8892b0" alt="Python" title="Python" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/nodedotjs/8892b0" alt="Node.js" title="Node.js" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/express/8892b0" alt="Express" title="Express" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/fastapi/8892b0" alt="FastAPI" title="FastAPI" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/postgresql/8892b0" alt="PostgreSQL" title="PostgreSQL" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/mongodb/8892b0" alt="MongoDB" title="MongoDB" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/redis/8892b0" alt="Redis" title="Redis" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/docker/8892b0" alt="Docker" title="Docker" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/tailwindcss/8892b0" alt="Tailwind CSS" title="Tailwind CSS" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/git/8892b0" alt="Git" title="Git" loading="lazy" />
+          <img src="https://cdn.simpleicons.org/github/8892b0" alt="GitHub" title="GitHub" loading="lazy" />
+        </div>
+      </div>
+    </div>
       <div class="section-content">
         <h2 class="section-title">
           <span class="section-number">03.</span> Skills
@@ -628,5 +722,8 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- WebGL circular gallery (currently unused)
+    <script type="module" src="gallery.js"></script>
+    -->
   </body>
 </html>

@@ -18,42 +18,6 @@
 }
 
 /* ========================================
-   RAIN
-   ======================================== */
-
-#rain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 1.0s ease;
-}
-
-#rain.active {
-  opacity: 1;
-}
-
-#rain.fading {
-  opacity: 0;
-  transition: opacity 2.5s ease;
-}
-
-.rain-drop {
-  position: absolute;
-  top: -30px;
-  width: 2px;
-  background: linear-gradient(to bottom, transparent, rgba(160, 210, 255, 0.85));
-  border-radius: 1px;
-  animation: rain-fall linear infinite;
-}
-
-@keyframes rain-fall {
-  to { transform: translateY(110vh); }
-}
-
-/* ========================================
    SCROLL PROGRESS BAR
    ======================================== */
 
@@ -267,8 +231,14 @@ ul {
 
 .hero-image-wrapper {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: 340px;
+  box-sizing: border-box;
+  /* polaroid frame: thin sides, fat bottom for the caption */
+  padding: 14px 14px 56px;
+  background: #f0ede4;
+  border-radius: 4px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  transform: rotate(2.5deg);
 }
 
 .hero-image-wrapper img {
@@ -321,8 +291,8 @@ ul {
   }
   
   .hero-image-wrapper {
-    width: 220px;
-    height: 220px;
+    width: 260px;
+    padding: 10px 10px 44px;
   }
 }
 
@@ -820,7 +790,7 @@ ul {
   opacity: 0;
 }
 
-/* Hero Image Float on Idle */
+/* Hero Image Float on Idle — replaced by the Ken Burns drift below
 .hero-image-wrapper:not(:hover) img {
   animation: float 6s ease-in-out infinite;
 }
@@ -828,12 +798,321 @@ ul {
 .hero-image-wrapper:hover img {
   animation: none;
 }
+*/
+/* ========================================
+   CIRCULAR GALLERY — WebGL hero background (currently unused)
+   ======================================== */
+/*
+.hero {
+  position: relative;
+}
+
+.hero-gallery {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.45;
+  cursor: grab;
+  overflow: hidden;
+}
+
+.hero-gallery:active {
+  cursor: grabbing;
+}
+
+.hero-gallery canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-content a,
+.hero-content button {
+  pointer-events: auto;
+}
+*/
+
+/* ========================================
+   DOCK NAVIGATION — vanilla port of ReactBits Dock
+   ======================================== */
+
+.dock-panel {
+  position: fixed;
+  top: 0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-start; /* items grow downward from the top bar */
+  gap: 0.8rem;
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background-color: rgba(17, 34, 64, 0.85);
+  border: 1px solid var(--border, #233554);
+  backdrop-filter: blur(10px);
+  z-index: 500;
+}
+
+.dock-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(10, 25, 47, 0.9);
+  border: 1px solid var(--border, #233554);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  color: #8892b0;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.dock-item:hover {
+  color: #00bfff;
+  border-color: #00bfff;
+}
+
+.dock-item svg {
+  width: 50%;
+  height: 50%;
+}
+
+.dock-label {
+  position: absolute;
+  bottom: -1.8rem; /* dock sits at the top, so labels show below */
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  white-space: pre;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border, #233554);
+  background-color: rgba(10, 25, 47, 0.95);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  color: #e6f1ff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dock-item:hover .dock-label {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+@media (max-width: 600px) {
+  .dock-panel {
+    gap: 0.5rem;
+  }
+  .dock-item {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ========================================
+   PIXEL SNOW — full-page retro snowfall
+   ======================================== */
+
+#pixel-snow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ========================================
+   TEXT TYPE — typewriter cursor for the hero tagline
+   ======================================== */
+
+.hero-tagline {
+  min-height: 1.3em; /* keep layout steady while text types in/out */
+}
+
+.type-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #00bfff;
+  font-weight: 400;
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ========================================
+   DOT GRID — cursor-reactive dots inside experience cards
+   ======================================== */
+
+.experience-item,
+.project-card {
+  position: relative;
+  z-index: 0; /* creates a stacking context so the canvas sits above the card bg */
+  overflow: hidden;
+}
+
+.experience-item .dot-grid-canvas,
+.project-card .dot-grid-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ========================================
+   LOGO LOOP — scrolling strip of tech logos
+   ======================================== */
+
+.logo-loop {
+  overflow: hidden;
+  padding: 1.6rem 0;
+  /* fade the strip out at both edges */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  margin:2.0rem 0 ;
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  animation: logo-scroll 32s linear infinite;
+}
+
+.logo-loop:hover .logo-track {
+  animation-play-state: paused;
+}
+
+.logo-set {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  padding-right: 3.5rem; /* keeps the two halves evenly spaced at the seam */
+}
+
+.logo-set img {
+  width: 34px;
+  height: 34px;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.logo-set img:hover {
+  opacity: 1;
+  transform: scale(1.18);
+}
+
+@keyframes logo-scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* ========================================
+   CURSOR FX — pixel wind trail + click sparks
+   ======================================== */
+
+#cursor-fx {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10002;
+}
+
+/* ========================================
+   BOUNCE CARDS (hero) — vanilla port of ReactBits BounceCards
+   ======================================== */
+
+.bounce-cards {
+  position: relative;
+  width: 440px;
+  height: 340px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bounce-card {
+  position: absolute;
+  width: 195px;
+  /* bouncy "back.out" feel on hover pushes */
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+/* each card is a little polaroid */
+.bounce-card-inner {
+  position: relative;
+  background: #f0ede4;
+  padding: 7px 7px 28px;
+  border-radius: 3px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  animation: bounce-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.bounce-caption {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: #3d4250;
+  pointer-events: none;
+}
+
+/* staggered elastic entrance */
+.bounce-card:nth-child(1) .bounce-card-inner { animation-delay: 0.6s; }
+.bounce-card:nth-child(2) .bounce-card-inner { animation-delay: 0.68s; }
+.bounce-card:nth-child(3) .bounce-card-inner { animation-delay: 0.76s; }
+.bounce-card:nth-child(4) .bounce-card-inner { animation-delay: 0.84s; }
+.bounce-card:nth-child(5) .bounce-card-inner { animation-delay: 0.92s; }
+
+@keyframes bounce-pop {
+  0%   { transform: scale(0); }
+  55%  { transform: scale(1.08); }
+  75%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+.bounce-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(15%);
+  transition: filter 0.3s ease;
+}
+
+.bounce-card:hover img {
+  filter: grayscale(0%);
+}
+
+@media (max-width: 900px) {
+  .bounce-cards {
+    width: 320px;
+    height: 260px;
+    transform: scale(0.7);
+  }
+}
+
 /* Hero Carousel */
 .hero-carousel {
   position: relative;
   width: 100%;
-  height: 100%;
-  border-radius: 8px;
+  aspect-ratio: 1 / 1; /* square photo inside the polaroid frame */
+  border-radius: 2px;
   overflow: hidden;
 }
 
@@ -844,6 +1123,7 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 0; /* square corners inside the polaroid frame */
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
   filter: grayscale(20%);
@@ -851,6 +1131,37 @@ ul {
 
 .hero-carousel img.active {
   opacity: 1;
+  animation: ken-burns 5.5s ease-in-out forwards;
+}
+
+/* alternate slides drift the other way so it doesn't feel mechanical */
+.hero-carousel img:nth-child(even).active {
+  animation-name: ken-burns-alt;
+}
+
+@keyframes ken-burns {
+  from { transform: scale(1) translate(0, 0); }
+  to   { transform: scale(1.09) translate(-8px, 5px); }
+}
+
+@keyframes ken-burns-alt {
+  from { transform: scale(1) translate(0, 0); }
+  to   { transform: scale(1.09) translate(8px, -5px); }
+}
+
+/* handwritten label in the polaroid's bottom strip */
+.carousel-caption {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: #3d4250;
+  pointer-events: none;
 }
 
 .hero-image-wrapper:hover .hero-carousel img {
@@ -1083,6 +1394,7 @@ ul {
   }
 }
 
+/* OLD blue-square lil guy — replaced by the Mii below
 .player {
   position: fixed;
   width: 32px;
@@ -1116,6 +1428,302 @@ ul {
   background: var(--bg-primary);
   border-radius: 50%;
 }
+*/
+
+/* ========================================
+   MII CHARACTER
+   100% real Mii render (Mii Studio API), dissected:
+   the arms and legs are cropped out of the same PNG
+   into their own pieces so they can rotate at the
+   shoulders and hips. Coordinates are in render px
+   (270x270), scaled down as one unit by .mii-scale.
+   ======================================== */
+
+.player {
+  position: fixed;
+  width: 60px;
+  height: 84px;
+  z-index: 9999;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.player.held {
+  cursor: grabbing;
+}
+
+.mii-rig {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+  transition: transform 0.2s ease;
+}
+
+.player.facing-left .mii-rig {
+  transform: scaleX(-1);
+}
+
+/* lean into the sprint (scaleX flips the lean direction automatically) */
+.player.running .mii-rig {
+  transform: rotate(9deg);
+}
+.player.facing-left.running .mii-rig {
+  transform: scaleX(-1) rotate(9deg);
+}
+
+/* Shrinks the 270px render space down to character size — tune scale() to resize him */
+.mii-scale {
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  left: 50%;
+  bottom: -7px; /* feet sit ~13 render-px above the image bottom */
+  transform: translateX(-50%) scale(0.55);
+  transform-origin: 50% 100%;
+}
+
+.mii-scale img {
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* Head + torso: full render with the arm and leg regions clipped out */
+.mii-body {
+  left: 0;
+  top: 0;
+  clip-path: polygon(
+    0 0, 270px 0,
+    270px 174px, 149px 174px,
+    149px 222px, 121px 222px,
+    121px 174px, 0 174px
+  );
+}
+
+/* Arms: windows onto the render's own arm pixels, pivoting at the shoulder */
+.mii-arm {
+  position: absolute;
+  overflow: hidden;
+  top: 170px;
+  width: 20px;
+  height: 58px;
+  transition: transform 0.18s ease;
+}
+.mii-arm.arm-l { left: 102px; width: 19px; transform-origin: 16px 9px; }
+.mii-arm.arm-l img { left: -102px; top: -170px; }
+.mii-arm.arm-r { left: 149px; width: 19px; transform-origin: 4px 9px; }
+.mii-arm.arm-r img { left: -149px; top: -170px; }
+
+/* Legs: same trick, pivoting at the hip */
+.mii-leg {
+  position: absolute;
+  overflow: hidden;
+  top: 220px;
+  width: 16px;
+  height: 40px;
+  transform-origin: 50% 3px;
+}
+.mii-leg.leg-l { left: 119px; }
+.mii-leg.leg-l img { left: -119px; top: -220px; }
+.mii-leg.leg-r { left: 135px; }
+.mii-leg.leg-r img { left: -135px; top: -220px; }
+
+/* --- walking: gentle limb swing, opposite arm/leg pairs --- */
+@keyframes limb-swing {
+  0%   { transform: rotate(-30deg); }
+  50%  { transform: rotate(30deg); }
+  100% { transform: rotate(-30deg); }
+}
+
+.player.walking .mii-arm.arm-l,
+.player.walking .mii-leg.leg-r {
+  animation: limb-swing 0.5s ease-in-out infinite;
+}
+.player.walking .mii-arm.arm-r,
+.player.walking .mii-leg.leg-l {
+  animation: limb-swing 0.5s ease-in-out infinite;
+  animation-delay: -0.25s;
+}
+
+/* --- running: bigger, faster swing --- */
+@keyframes limb-swing-big {
+  0%   { transform: rotate(-55deg); }
+  50%  { transform: rotate(55deg); }
+  100% { transform: rotate(-55deg); }
+}
+
+.player.running .mii-arm.arm-l,
+.player.running .mii-leg.leg-r {
+  animation: limb-swing-big 0.26s linear infinite;
+}
+.player.running .mii-arm.arm-r,
+.player.running .mii-leg.leg-l {
+  animation: limb-swing-big 0.26s linear infinite;
+  animation-delay: -0.13s;
+}
+
+/* --- parka (unlocked by clearing the snowflake hunt) ---
+   coordinates are in the 270px render space inside .mii-scale */
+.parka-body {
+  position: absolute;
+  left: 116px;
+  top: 176px;
+  width: 38px;
+  height: 48px;
+  background: #d9622b;
+  border-radius: 15px 15px 10px 10px;
+  box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.16);
+}
+
+.parka-body::before { /* zipper */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  bottom: 7px;
+  width: 2px;
+  margin-left: -1px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.parka-body::after { /* fur hem */
+  content: '';
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 0;
+  height: 6px;
+  background: #f2e7d8;
+  border-radius: 4px;
+}
+
+.parka-hood { /* hood up over the hair, face left open */
+  position: absolute;
+  left: 101px;
+  top: 95px;
+  width: 67px;
+  height: 78px;
+  box-sizing: border-box;
+  border: 9px solid #d9622b;
+  border-radius: 50% 50% 46% 46%;
+  background: transparent;
+  /* open at the bottom so it doesn't wrap under his chin */
+  clip-path: inset(0 0 16% 0);
+}
+
+.parka-hood::before { /* fur trim around the face */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid #f2e7d8;
+  border-radius: inherit;
+}
+
+.parka-collar { /* fur collar under the chin */
+  position: absolute;
+  left: 114px;
+  top: 173px;
+  width: 42px;
+  height: 8px;
+  background: #f2e7d8;
+  border-radius: 5px;
+}
+
+.parka-sleeve { /* lives inside each arm crop, so it swings with the arm */
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  width: 15px;
+  height: 36px;
+  background: #d9622b;
+  border-radius: 8px;
+}
+
+.parka-sleeve::after { /* fur cuff */
+  content: '';
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 0;
+  height: 5px;
+  background: #f2e7d8;
+  border-radius: 4px;
+}
+
+/* --- speech bubble above his head --- */
+.mii-bubble {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.6);
+  transform-origin: 50% 100%;
+  background: #e6f1ff;
+  color: #0a192f;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.mii-bubble::after { /* tail */
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: #e6f1ff;
+}
+
+.mii-bubble.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* --- held: arms raised up and out; falling: arms spread down and out --- */
+.player.held .mii-arm,
+.player.airborne .mii-arm {
+  z-index: 2; /* in front of the body so the pose stays visible */
+}
+.player.held .mii-arm.arm-l {
+  animation: none;
+  transform: rotate(135deg);
+}
+.player.held .mii-arm.arm-r {
+  animation: none;
+  transform: rotate(-135deg);
+}
+.player.airborne .mii-arm.arm-l {
+  animation: none;
+  transform: rotate(45deg);
+}
+.player.airborne .mii-arm.arm-r {
+  animation: none;
+  transform: rotate(-45deg);
+}
+
+@keyframes leg-dangle {
+  from { transform: rotate(-14deg); }
+  to   { transform: rotate(14deg); }
+}
+
+.player.held .mii-leg,
+.player.airborne .mii-leg {
+  animation: leg-dangle 0.4s ease-in-out infinite alternate;
+}
+.player.held .mii-leg.leg-r,
+.player.airborne .mii-leg.leg-r {
+  animation-delay: -0.2s;
+}
 
 .spawn-btn {
   position: fixed;
@@ -1144,15 +1752,26 @@ ul {
    ======================================== */
 
 .coin {
-  width: 16px;
-  height: 16px;
-  background: radial-gradient(circle at 38% 35%, #ffe566, #f5a623 60%, #c97d10);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255, 210, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  width: 18px;
+  height: 18px;
   z-index: 9999;
   pointer-events: none;
   animation: coin-float 2s ease-in-out infinite;
   animation-delay: var(--delay, 0s);
+  font-size: 18px;
+  line-height: 1;
+  color: #bfe3ff;
+  text-shadow: 0 0 8px rgba(0, 191, 255, 0.6);
+}
+
+.coin::before {
+  content: '❄';
+  display: inline-block;
+  animation: flake-spin 3.2s linear infinite;
+}
+
+@keyframes flake-spin {
+  to { transform: rotate(360deg); }
 }
 
 @keyframes coin-float {
@@ -1176,17 +1795,17 @@ ul {
   left: 50%;
   transform: translate(-50%, -50%) scale(0.6);
   background: rgba(13, 17, 23, 0.95);
-  border: 1px solid #ffd700;
+  border: 1px solid #9fdcff;
   border-radius: 12px;
   padding: 16px 32px;
   font-family: var(--font-mono);
   font-size: 1.4rem;
   font-weight: 700;
-  color: #ffd700;
+  color: #bfe3ff;
   z-index: 99998;
   pointer-events: none;
   backdrop-filter: blur(12px);
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 40px rgba(0, 191, 255, 0.3);
   animation: toast-pop 2.6s ease forwards;
 }
 
@@ -1208,8 +1827,67 @@ ul {
   padding: 6px 14px;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: #ffd700;
+  color: #bfe3ff;
   z-index: 10001;
   backdrop-filter: blur(8px);
   pointer-events: none;
+}
+
+/* ========================================
+   WOODEN SIGN — controls hint planted in the snowbank
+   ======================================== */
+
+#mii-sign {
+  position: fixed;
+  bottom: 44px;
+  left: 7vw;
+  z-index: -1; /* lives in the snow scene, behind the cards */
+  padding: 4px 7px;
+  background: #55412e;
+  border: 1px solid #3f3122;
+  border-radius: 2px;
+  color: #e2d6c3;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.52rem;
+  line-height: 1.45;
+  text-align: center;
+  transform: rotate(-1.5deg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+#mii-sign::after { /* post into the snow */
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 5px;
+  height: 24px;
+  margin-left: -2.5px;
+  background: #46362a;
+  border-left: 1px solid #3f3122;
+}
+
+/* ========================================
+   SNOWMAN — built when you collect every snowflake
+   ======================================== */
+
+.snowman {
+  position: fixed;
+  bottom: 22px;
+  z-index: -1; /* behind the content cards, in the background layer with the snow scene */
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  animation: snowman-rise 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.snowman canvas {
+  display: block;
+  width: 52px; /* 26px canvas at 2x — chunky pixels */
+  image-rendering: pixelated;
+}
+
+@keyframes snowman-rise {
+  from { transform: translateY(60px) scale(0.4); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
 }
