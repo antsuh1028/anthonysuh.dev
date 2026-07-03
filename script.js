@@ -521,7 +521,8 @@ function buildSnowman() {
   if (all.length > 3) all[0].remove(); // keep at most three standing
 }
 
-// TEMP: test button for spawning snowmen — remove when done testing
+// TEMP: test button for spawning snowmen — uncomment to test celebrate()
+/*
 (function addSnowmanTestButton() {
   const b = document.createElement('button');
   b.id = 'snowman-test';
@@ -535,6 +536,7 @@ function buildSnowman() {
   b.addEventListener('click', celebrate); // tests snowman + fireworks + parka unlock
   document.body.appendChild(b);
 })();
+*/
 
 function celebrate() {
   buildSnowman();
