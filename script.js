@@ -278,6 +278,44 @@ if (carouselImages.length > 1) {
 }
 
 // ========================================
+// ANALYTICS EVENTS (GoatCounter) - what visitors actually engage with
+// ========================================
+
+const sentEvents = new Set();
+
+// once = true sends the event at most once per page visit
+function trackEvent(name, once = false) {
+  if (once && sentEvents.has(name)) return;
+  sentEvents.add(name);
+  if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: name, title: name, event: true });
+  }
+}
+
+// resume opens (hero button + dock icon)
+document.querySelectorAll('a[href*="AnthonySuh_Resume.pdf"]').forEach(a => {
+  a.addEventListener('click', () => trackEvent('resume-view'));
+});
+
+// hero social icons
+document.querySelectorAll('.hero-links a[href*="github.com"]').forEach(a => {
+  a.addEventListener('click', () => trackEvent('social-github'));
+});
+document.querySelectorAll('.hero-links a[href*="linkedin.com"]').forEach(a => {
+  a.addEventListener('click', () => trackEvent('social-linkedin'));
+});
+
+// devpost / github clicks per project (the icon links)
+document.querySelectorAll('.project-card').forEach(card => {
+  const title = (card.querySelector('.project-title')?.textContent || 'project')
+    .trim().toLowerCase().replace(/\s+/g, '-');
+  card.querySelectorAll('.project-links a').forEach(a => {
+    const kind = a.href.includes('devpost') ? 'devpost' : 'github';
+    a.addEventListener('click', () => trackEvent(`${kind}-${title}`));
+  });
+});
+
+// ========================================
 // EMAIL COPY - mailto links copy the address instead, since many
 // visitors have no desktop mail client configured
 // ========================================
@@ -317,6 +355,7 @@ if (carouselImages.length > 1) {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       copyEmail();
+      trackEvent('email-copy', true);
     });
   });
 })();
@@ -330,6 +369,9 @@ document.querySelectorAll('.project-card').forEach(card => {
   if (!link) return;
   card.addEventListener('click', (e) => {
     if (e.target.closest('a')) return; // let the inner icon link work normally
+    const title = (card.querySelector('.project-title')?.textContent || 'project')
+      .trim().toLowerCase().replace(/\s+/g, '-');
+    trackEvent(`${link.href.includes('devpost') ? 'devpost' : 'github'}-${title}`);
     window.open(link.href, '_blank', 'noopener');
   });
 });
@@ -601,6 +643,7 @@ function celebrate() {
   if (window.startAurora) window.startAurora(); // northern lights roll in
   showBubble('we built a snowman!!', 3000);
   addParka(); // first clear ever: he bundles up
+  trackEvent('hunt-complete');
 }
 // ---------------------
 
@@ -837,6 +880,7 @@ function spawnMii() {
     setExpression('surprise');
     const yelp = ['waaah!!', 'hey, put me down!', 'whee!'];
     showBubble(yelp[Math.floor(Math.random() * yelp.length)], 1500);
+    trackEvent('mii-grabbed', true);
   });
 
   player.addEventListener('pointermove', (e) => {
@@ -901,6 +945,7 @@ spawnBtn.addEventListener('click', () => {
   createCoinDisplay();
   window.snowBoost = true; // hunt weather: blizzard!
   spawnBtn.textContent = 'End the hunt';
+  trackEvent('hunt-start', true);
 });
 
 window.addEventListener('keydown', (e) => {
