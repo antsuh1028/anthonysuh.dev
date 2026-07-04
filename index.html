@@ -17,7 +17,7 @@
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress"></div>
 
-    <!-- OLD navigation — replaced by the dock below
+    <!-- OLD navigation - replaced by the dock below
     <nav class="nav">
       <div class="nav-content">
         <a href="#" class="nav-logo">AS</a>
@@ -73,7 +73,7 @@
         </svg>
         <span class="dock-label">Contact</span>
       </a>
-      <a class="dock-item" href="./documents/AnthonySuh_Resume (2).pdf" target="_blank" aria-label="Resume">
+      <a class="dock-item" href="./documents/AnthonySuh_Resume.pdf" target="_blank" aria-label="Resume">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
           <polyline points="14 2 14 8 20 8"></polyline>
@@ -146,34 +146,52 @@
                 </svg>
               </a>
             </div>
+            <a
+              href="./documents/AnthonySuh_Resume.pdf"
+              target="_blank"
+              class="hero-resume-btn"
+              >View Resume</a
+            >
           </div>
           <div class="hero-image">
             <div class="bounce-cards" id="bounce-cards">
-              <div class="bounce-card" style="transform: rotate(10deg) translateX(-110px)">
+              <div class="bounce-card" style="transform: rotate(11deg) translateX(-135px)">
                 <div class="bounce-card-inner">
                   <img src="./images/JP2.jpg" alt="Anthony Suh in Tokyo" />
                   <span class="bounce-caption">tokyo</span>
                 </div>
               </div>
-              <div class="bounce-card" style="transform: rotate(5deg) translateX(-55px)">
+              <div class="bounce-card" style="transform: rotate(7deg) translateX(-90px)">
                 <div class="bounce-card-inner">
                   <img src="./images/profile2.jpg" alt="Anthony Suh in Seattle" />
                   <span class="bounce-caption">seattle</span>
                 </div>
               </div>
-              <div class="bounce-card" style="transform: rotate(-3deg)">
+              <div class="bounce-card" style="transform: rotate(3deg) translateX(-45px)">
+                <div class="bounce-card-inner">
+                  <img src="./images/grad2.jpg" alt="Anthony Suh at graduation" />
+                  <span class="bounce-caption">zot zot!</span>
+                </div>
+              </div>
+              <div class="bounce-card" style="transform: rotate(-2deg)">
                 <div class="bounce-card-inner">
                   <img src="./images/grad.jpg" alt="Anthony Suh at graduation" />
                   <span class="bounce-caption">graduation</span>
                 </div>
               </div>
-              <div class="bounce-card" style="transform: rotate(-10deg) translateX(55px)">
+              <div class="bounce-card" style="transform: rotate(-6deg) translateX(45px)">
+                <div class="bounce-card-inner">
+                  <img src="./images/grad3.jpg" alt="Anthony Suh at graduation" />
+                  <span class="bounce-caption">class of 2026</span>
+                </div>
+              </div>
+              <div class="bounce-card" style="transform: rotate(-10deg) translateX(90px)">
                 <div class="bounce-card-inner">
                   <img src="./images/profile3.jpg" alt="Anthony Suh downtown" />
                   <span class="bounce-caption">downtown</span>
                 </div>
               </div>
-              <div class="bounce-card" style="transform: rotate(2deg) translateX(110px)">
+              <div class="bounce-card" style="transform: rotate(4deg) translateX(135px)">
                 <div class="bounce-card-inner">
                   <img src="./images/image0.jpg" alt="Tokyo Skytree" />
                   <span class="bounce-caption">skytree</span>
@@ -217,21 +235,25 @@
             </div>
             <ul class="experience-details">
               <li>
-                Architected and shipped production B2B wholesale platform with
-                React, TypeScript, and Tailwind, enabling 15+ restaurant clients
-                to browse inventory and manage invoices online, replacing
-                phone and email-based ordering
+                Architected a production B2B wholesale platform (React,
+                TypeScript, Tailwind), replacing manual phone and email order
+                intake with a self-service ordering portal for recurring
+                wholesale clients
               </li>
               <li>
-                Engineered Node.js/Express backend and PostgreSQL schema handling
-                concurrent order updates across 300+ SKUs, reducing order
-                processing time by 40% and eliminating manual fulfillment
-                bottlenecks
+                Designed PostgreSQL schema and Node.js/Express API handling
+                concurrent order updates across 300+ SKUs with optimistic
+                locking, cutting order processing time by 40%
               </li>
               <li>
-                Deployed on AWS EC2 with S3 asset storage and Docker
-                containerization, building admin dashboard for real-time order
-                tracking
+                Deployed on AWS EC2 with S3 asset storage, Docker
+                containerization, and CI/CD via GitHub Actions; built admin
+                dashboard for real-time order tracking across all accounts
+              </li>
+              <li>
+                Engineered an OCR pipeline with AWS Textract and GPT-4o mini
+                vision to digitize handwritten supplier forms, validating fields
+                against known SKUs and cutting manual data entry by 50%
               </li>
             </ul>
             <div class="experience-tech">
@@ -243,6 +265,8 @@
               <span>PostgreSQL</span>
               <span>AWS EC2</span>
               <span>Docker</span>
+              <span>GitHub Actions</span>
+              <span>AWS Textract</span>
             </div>
           </div>
 
@@ -259,7 +283,7 @@
                     href="https://sunstonecities.com/"
                     target="_blank"
                     class="company-link"
-                    >@ Sunstone Cities</a
+                    >@ AI @ UCI (Sunstone Cities Project)</a
                   >
                 </span>
               </div>
@@ -267,15 +291,16 @@
             </div>
             <ul class="experience-details">
               <li>
-                Built Python and FastAPI backend with a Retrieval-Augmented
-                Generation pipeline for large-scale automated content
-                generation, reducing report production time from hours of
-                manual research to seconds per output
+                Built a Python/FastAPI backend automating economic report
+                generation for 400+ California cities, chunking Census ACS data
+                and retrieving city context via vector similarity to drive LLM
+                narratives
               </li>
               <li>
-                Integrated OpenAI embeddings and vector similarity search across
-                structured datasets, enabling semantic retrieval that surfaced
-                relevant context for downstream LLM-driven content generation
+                Integrated OpenAI embeddings with pgvector for semantic
+                retrieval over structured ACS data, grounding generated
+                narratives in verified Census figures and cutting report
+                production from hours to seconds
               </li>
             </ul>
             <div class="experience-tech">
@@ -283,7 +308,7 @@
               <span>FastAPI</span>
               <span>RAG</span>
               <span>OpenAI API</span>
-              <span>Vector Search</span>
+              <span>pgvector</span>
             </div>
           </div>
 
@@ -304,7 +329,7 @@
                   >
                 </span>
               </div>
-              <span class="experience-date">Oct 2024 — Present</span>
+              <span class="experience-date">Oct 2024 — Jun 2026</span>
             </div>
             <ul class="experience-details">
               <li>
@@ -313,9 +338,9 @@
                 automating 60% of manual financial workflows across departments
               </li>
               <li>
-                Built scalable REST API with Node.js, Express, and PostgreSQL,
-                integrating Google Calendar API to sync event-driven payment
-                schedules for real-time program revenue tracking
+                Collaborated in a 12-person team using Agile methodologies to
+                build a scalable REST API with Node.js and PostgreSQL,
+                integrating Google Calendar API for event-driven payments
               </li>
               <li>
                 Automated invoice generation pipeline with Gmail API and
@@ -355,20 +380,15 @@
             </div>
             <ul class="experience-details">
               <li>
-                Built inventory management system using React, MongoDB, and
-                Next.js, tracking 300+ products
+                Built an inventory tracking application (React, Next.js,
+                MongoDB) from a self-authored requirements spec, flagging
+                inventory discrepancies in real time via automated anomaly
+                detection across 300+ SKUs
               </li>
               <li>
-                Surfaced $15,000 in potential losses through real-time inventory
-                tracking
-              </li>
-              <li>
-                Reduced 5–7 hours weekly by replacing manual handwritten logs
-                and streamlining data entry
-              </li>
-              <li>
-                Containerized the application with Docker and deployed on AWS
-                Lightsail
+                Containerized with Docker and deployed on AWS Lightsail,
+                replacing handwritten record-keeping with a structured digital
+                workflow that cut 5+ hours of weekly manual logging
               </li>
             </ul>
             <div class="experience-tech">
@@ -415,9 +435,27 @@
               </div>
               <div class="project-links">
                 <a
-                  href="https://github.com/antsuh1028"
+                  href="https://devpost.com/software/pocketzot"
+                  target="_blank"
+                  aria-label="Devpost"
+                  title="View on Devpost"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M6.002 1.61 0 12.004 6.002 22.39h11.996L24 12.004 17.998 1.61zm1.593 4.084h3.947c3.605 0 6.276 1.695 6.276 6.31 0 4.436-3.21 6.302-6.456 6.302H7.595zm2.517 2.449v7.714h1.241c2.646 0 3.862-1.55 3.862-3.861.009-2.569-1.096-3.853-3.767-3.853z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/antsuh1028/PocketZot"
                   target="_blank"
                   aria-label="GitHub"
+                  title="View on GitHub"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -435,11 +473,11 @@
             <h3 class="project-title">PocketZot</h3>
             <p class="project-award">🏆 Best Neuro Hack — IrvineHacks 2026</p>
             <p class="project-description">
-              AI Cognitive Offloading Assistant — Chrome extension that
-              classifies cognitive offloading behavior in real time using a
-              fine-tuned GPT-4o mini model. Built Chrome Extension architecture
-              (content scripts, background services, popup UI) with React and a
-              PostgreSQL backend storing 300+ behavioral events.
+              AI Cognitive Offloading Assistant: Chrome extension classifying
+              cognitive offloading behavior in real time with GPT-4o mini
+              fine-tuned on a custom 5-class taxonomy, detecting prompts across
+              ChatGPT, Claude, Gemini, and Perplexity. Served via a FastAPI
+              backend with PostgreSQL.
             </p>
             <div class="project-tech-list">
               <span>React</span>
@@ -491,10 +529,10 @@
             <h3 class="project-title">DineSafe</h3>
             <p class="project-award">🏆 2nd Place — UCI Hackathon 2025</p>
             <p class="project-description">
-              Full-stack MERN application visualizing health inspection data for
-              400+ Orange County restaurants. Features interactive Google Maps
-              interface with real-time geolocation and AI-powered report
-              summarization.
+              Full-stack MERN application surfacing health inspection data for
+              400+ Orange County restaurants on an interactive Google Maps
+              interface. Python scraper extracts 300+ inspection reports, with
+              GPT-generated violation summaries.
             </p>
             <div class="project-tech-list">
               <span>MongoDB</span>
@@ -527,9 +565,27 @@
               </div>
               <div class="project-links">
                 <a
+                  href="https://devpost.com/software/homesteadr"
+                  target="_blank"
+                  aria-label="Devpost"
+                  title="View on Devpost"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M6.002 1.61 0 12.004 6.002 22.39h11.996L24 12.004 17.998 1.61zm1.593 4.084h3.947c3.605 0 6.276 1.695 6.276 6.31 0 4.436-3.21 6.302-6.456 6.302H7.595zm2.517 2.449v7.714h1.241c2.646 0 3.862-1.55 3.862-3.861.009-2.569-1.096-3.853-3.767-3.853z"
+                    />
+                  </svg>
+                </a>
+                <a
                   href="https://github.com/antsuh1028/HomeSteadr"
                   target="_blank"
                   aria-label="GitHub"
+                  title="View on GitHub"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -581,9 +637,27 @@
               </div>
               <div class="project-links">
                 <a
+                  href="https://devpost.com/software/sonder-e1bnp7"
+                  target="_blank"
+                  aria-label="Devpost"
+                  title="View on Devpost"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M6.002 1.61 0 12.004 6.002 22.39h11.996L24 12.004 17.998 1.61zm1.593 4.084h3.947c3.605 0 6.276 1.695 6.276 6.31 0 4.436-3.21 6.302-6.456 6.302H7.595zm2.517 2.449v7.714h1.241c2.646 0 3.862-1.55 3.862-3.861.009-2.569-1.096-3.853-3.767-3.853z"
+                    />
+                  </svg>
+                </a>
+                <a
                   href="https://github.com/kellyserafico/sonder"
                   target="_blank"
                   aria-label="GitHub"
+                  title="View on GitHub"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -671,10 +745,9 @@
           <div class="skill-category">
             <h3>Cloud & Databases</h3>
             <ul>
-              <li>AWS (EC2, S3, Lambda, Lightsail)</li>
-              <li>PostgreSQL</li>
+              <li>AWS (EC2, S3, Lightsail)</li>
+              <li>PostgreSQL / pgvector</li>
               <li>MongoDB</li>
-              <li>Redis</li>
               <li>OpenAI API / RAG</li>
             </ul>
           </div>
@@ -697,12 +770,12 @@
         <p class="contact-overline">04. What's Next?</p>
         <h2 class="contact-title">Get In Touch</h2>
         <p class="contact-description">
-          I'm currently looking for new grad software engineering opportunities
-          starting Summer 2026. Whether you have an opportunity or just want to
-          say hi, my inbox is always open.
+          I'm a recent UC Irvine CS grad looking for new grad software
+          engineering opportunities. Whether you have an opportunity or just
+          want to say hi, my inbox is always open.
         </p>
         <a href="mailto:ant.suh1028@gmail.com" class="contact-button"
-          >Say Hello</a
+          >ant.suh1028@gmail.com</a
         >
       </div>
     </section>
@@ -725,5 +798,12 @@
     <!-- WebGL circular gallery (currently unused)
     <script type="module" src="gallery.js"></script>
     -->
+
+    <!-- GoatCounter analytics -->
+    <script
+      data-goatcounter="https://anthonysuh.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
   </body>
 </html>

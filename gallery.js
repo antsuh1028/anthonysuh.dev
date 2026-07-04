@@ -1,5 +1,5 @@
 // ========================================
-// CIRCULAR GALLERY — vanilla port of ReactBits CircularGallery (WebGL / OGL)
+// CIRCULAR GALLERY - vanilla port of ReactBits CircularGallery (WebGL / OGL)
 // Renders as the hero background. Drag or scroll to spin; drifts slowly on its own.
 // ========================================
 

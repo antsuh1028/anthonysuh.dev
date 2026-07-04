@@ -363,10 +363,12 @@ ul {
   transition: var(--transition);
 }
 
+/* hover lift removed - experience cards aren't clickable
 .experience-item:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
 }
+*/
 
 .experience-header {
   display: flex;
@@ -488,6 +490,10 @@ ul {
 .project-card:hover {
   transform: translateY(-5px);
   border-color: var(--accent);
+}
+
+.project-card {
+  cursor: pointer; /* whole card opens the project's GitHub */
 }
 
 .project-card.featured {
@@ -790,7 +796,7 @@ ul {
   opacity: 0;
 }
 
-/* Hero Image Float on Idle — replaced by the Ken Burns drift below
+/* Hero Image Float on Idle - replaced by the Ken Burns drift below
 .hero-image-wrapper:not(:hover) img {
   animation: float 6s ease-in-out infinite;
 }
@@ -800,7 +806,7 @@ ul {
 }
 */
 /* ========================================
-   CIRCULAR GALLERY — WebGL hero background (currently unused)
+   CIRCULAR GALLERY - WebGL hero background (currently unused)
    ======================================== */
 /*
 .hero {
@@ -839,7 +845,7 @@ ul {
 */
 
 /* ========================================
-   DOCK NAVIGATION — vanilla port of ReactBits Dock
+   DOCK NAVIGATION - vanilla port of ReactBits Dock
    ======================================== */
 
 .dock-panel {
@@ -921,7 +927,7 @@ ul {
 }
 
 /* ========================================
-   PIXEL SNOW — full-page retro snowfall
+   PIXEL SNOW - full-page retro snowfall
    ======================================== */
 
 #pixel-snow {
@@ -932,7 +938,7 @@ ul {
 }
 
 /* ========================================
-   TEXT TYPE — typewriter cursor for the hero tagline
+   TEXT TYPE - typewriter cursor for the hero tagline
    ======================================== */
 
 .hero-tagline {
@@ -953,7 +959,7 @@ ul {
 }
 
 /* ========================================
-   DOT GRID — cursor-reactive dots inside experience cards
+   DOT GRID - cursor-reactive dots inside experience cards
    ======================================== */
 
 .experience-item,
@@ -972,7 +978,7 @@ ul {
 }
 
 /* ========================================
-   LOGO LOOP — scrolling strip of tech logos
+   LOGO LOOP - scrolling strip of tech logos
    ======================================== */
 
 .logo-loop {
@@ -1018,7 +1024,7 @@ ul {
 }
 
 /* ========================================
-   CURSOR FX — pixel wind trail + click sparks
+   CURSOR FX - pixel wind trail + click sparks
    ======================================== */
 
 #cursor-fx {
@@ -1029,7 +1035,7 @@ ul {
 }
 
 /* ========================================
-   BOUNCE CARDS (hero) — vanilla port of ReactBits BounceCards
+   BOUNCE CARDS (hero) - vanilla port of ReactBits BounceCards
    ======================================== */
 
 .bounce-cards {
@@ -1078,6 +1084,8 @@ ul {
 .bounce-card:nth-child(3) .bounce-card-inner { animation-delay: 0.76s; }
 .bounce-card:nth-child(4) .bounce-card-inner { animation-delay: 0.84s; }
 .bounce-card:nth-child(5) .bounce-card-inner { animation-delay: 0.92s; }
+.bounce-card:nth-child(6) .bounce-card-inner { animation-delay: 1.0s; }
+.bounce-card:nth-child(7) .bounce-card-inner { animation-delay: 1.08s; }
 
 @keyframes bounce-pop {
   0%   { transform: scale(0); }
@@ -1394,7 +1402,7 @@ ul {
   }
 }
 
-/* OLD blue-square lil guy — replaced by the Mii below
+/* OLD blue-square lil guy - replaced by the Mii below
 .player {
   position: fixed;
   width: 32px;
@@ -1473,7 +1481,7 @@ ul {
   transform: scaleX(-1) rotate(9deg);
 }
 
-/* Shrinks the 270px render space down to character size — tune scale() to resize him */
+/* Shrinks the 270px render space down to character size - tune scale() to resize him */
 .mii-scale {
   position: absolute;
   width: 270px;
@@ -1725,6 +1733,48 @@ ul {
   animation-delay: -0.2s;
 }
 
+#copy-toast {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(17, 34, 64, 0.95);
+  border: 1px solid #00bfff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  color: #bfe3ff;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 10003;
+  pointer-events: none;
+}
+
+#copy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.hero-resume-btn {
+  display: inline-block;
+  margin-top: 1.8rem;
+  padding: 12px 24px;
+  border: 1px solid #00bfff;
+  border-radius: 4px;
+  color: #00bfff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.hero-resume-btn:hover {
+  background-color: rgba(0, 191, 255, 0.1);
+  box-shadow: 0 4px 18px rgba(0, 191, 255, 0.25);
+  transform: translateY(-2px);
+}
+
 .spawn-btn {
   position: fixed;
   bottom: 24px;
@@ -1834,7 +1884,7 @@ ul {
 }
 
 /* ========================================
-   WOODEN SIGN — controls hint planted in the snowbank
+   WOODEN SIGN - controls hint planted in the snowbank
    ======================================== */
 
 #mii-sign {
@@ -1869,7 +1919,7 @@ ul {
 }
 
 /* ========================================
-   SNOWMAN — built when you collect every snowflake
+   SNOWMAN - built when you collect every snowflake
    ======================================== */
 
 .snowman {
@@ -1883,7 +1933,7 @@ ul {
 
 .snowman canvas {
   display: block;
-  width: 52px; /* 26px canvas at 2x — chunky pixels */
+  width: 52px; /* 26px canvas at 2x - chunky pixels */
   image-rendering: pixelated;
 }
 

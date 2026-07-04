@@ -131,7 +131,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ========================================
-// CURSOR GLOW EFFECT — replaced by the pixel wind trail (see CURSOR FX below)
+// CURSOR GLOW EFFECT - replaced by the pixel wind trail (see CURSOR FX below)
 // ========================================
 
 /*
@@ -278,7 +278,64 @@ if (carouselImages.length > 1) {
 }
 
 // ========================================
-// DOCK NAVIGATION — macOS-style magnification
+// EMAIL COPY - mailto links copy the address instead, since many
+// visitors have no desktop mail client configured
+// ========================================
+
+(function initEmailCopy() {
+  const EMAIL = 'ant.suh1028@gmail.com';
+  let toast = null;
+  let toastTimer = null;
+
+  function showCopyToast() {
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'copy-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = 'copied: ' + EMAIL;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function copyEmail() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(EMAIL).then(showCopyToast, showCopyToast);
+    } else {
+      const t = document.createElement('textarea');
+      t.value = EMAIL;
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand('copy');
+      t.remove();
+      showCopyToast();
+    }
+  }
+
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      copyEmail();
+    });
+  });
+})();
+
+// ========================================
+// PROJECT CARDS - whole card opens the project's GitHub repo
+// ========================================
+
+document.querySelectorAll('.project-card').forEach(card => {
+  const link = card.querySelector('.project-links a');
+  if (!link) return;
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return; // let the inner icon link work normally
+    window.open(link.href, '_blank', 'noopener');
+  });
+});
+
+// ========================================
+// DOCK NAVIGATION - macOS-style magnification
 // ========================================
 
 (function initDock() {
@@ -324,7 +381,7 @@ if (carouselImages.length > 1) {
 })();
 
 // ========================================
-// BOUNCE CARDS (hero) — hover pushes siblings aside,
+// BOUNCE CARDS (hero) - hover pushes siblings aside,
 // hovered card straightens; springy CSS transitions do the bounce
 // ========================================
 
@@ -334,7 +391,7 @@ if (carouselImages.length > 1) {
 
   const cards = Array.from(wrap.querySelectorAll('.bounce-card'));
   const baseTransforms = cards.map(c => c.style.transform || 'none');
-  const PUSH = 100;
+  const PUSH = 85; // 7 cards now - smaller push keeps the hover spread contained
 
   // Add an offset to an existing translateX, or append one
   function pushed(base, offset) {
@@ -521,12 +578,12 @@ function buildSnowman() {
   if (all.length > 3) all[0].remove(); // keep at most three standing
 }
 
-// TEMP: test button for spawning snowmen — uncomment to test celebrate()
+// TEMP: test button for spawning snowmen - uncomment to test celebrate()
 /*
 (function addSnowmanTestButton() {
   const b = document.createElement('button');
   b.id = 'snowman-test';
-  b.textContent = '⛄ test';
+  b.textContent = 'test snowman';
   Object.assign(b.style, {
     position: 'fixed', bottom: '24px', left: '24px', zIndex: '200',
     padding: '8px 12px', background: '#112240', color: '#bfe3ff',
@@ -542,20 +599,20 @@ function celebrate() {
   buildSnowman();
   if (window.launchFireworks) window.launchFireworks();
   if (window.startAurora) window.startAurora(); // northern lights roll in
-  showBubble('we built a snowman!! ⛄', 3000);
+  showBubble('we built a snowman!!', 3000);
   addParka(); // first clear ever: he bundles up
 }
 // ---------------------
 
 // ========================================
 // MII CHARACTER (replaces the old blue square)
-// Rendered by Nintendo's Mii Studio API — full-body transparent PNGs
+// Rendered by Nintendo's Mii Studio API - full-body transparent PNGs
 // ========================================
 
 const P_W = 60;  // collision box width
 const P_H = 84;  // collision box height
 const RUN_THRESHOLD = 4; // faster than this on the ground = running animation
-const SNOW_GROUND = 34;  // how high the snowy ground rises — the Mii walks on top of it
+const SNOW_GROUND = 34;  // how high the snowy ground rises - the Mii walks on top of it
 
 const MII_DATA = '000f165d656c6f72777c777b7a838e8f94a5acb3bac1ced5e4e7eeebeaf1d78e9198a1bcc6dcdfcfc9d4dbd8e3e9e7';
 const miiUrl = (expr) =>
@@ -727,7 +784,7 @@ function spawnMii() {
     return im;
   };
 
-  miiImg = mkImg(); // body + face — expression swaps happen on this one
+  miiImg = mkImg(); // body + face - expression swaps happen on this one
   miiImg.className = 'mii-body';
   // If Nintendo's API is unreachable, fall back to the classic blue square
   miiImg.onerror = () => {
@@ -755,7 +812,7 @@ function spawnMii() {
   bubble = document.createElement('div');
   bubble.className = 'mii-bubble';
   player.appendChild(bubble);
-  setTimeout(() => showBubble("hi! i'm lil anthony 👋"), 2500);
+  setTimeout(() => showBubble("hi! i'm lil anthony!"), 2500);
   scheduleBubble();
 
   document.body.appendChild(player);
@@ -797,7 +854,7 @@ function spawnMii() {
 
     const moved = Math.hypot(e.clientX - dragStartX, e.clientY - dragStartY);
     if (moved < 6) {
-      // Just a poke — little hop and a laugh
+      // Just a poke - little hop and a laugh
       velocityY = -8;
       pokeUntil = performance.now() + 900;
       setExpression('smile_open_mouth');
@@ -862,7 +919,7 @@ window.addEventListener('keyup', (e) => keys[e.key] = false);
 function runGameLoop() {
   if (!player) return;
 
-  // While held, physics pauses — he just hangs from the cursor
+  // While held, physics pauses - he just hangs from the cursor
   if (dragging) {
     player.style.left = playerX + 'px';
     player.style.top = playerY + 'px';
@@ -910,7 +967,7 @@ function runGameLoop() {
   playerX += velocityX;
   playerY += velocityY;
 
-  // Screen wrap (horizontal only — the floor catches him below)
+  // Screen wrap (horizontal only - the floor catches him below)
   if (playerX < -P_W - 20) playerX = window.innerWidth;
   if (playerX > window.innerWidth + 20) playerX = -P_W;
 
@@ -959,7 +1016,7 @@ function runGameLoop() {
     });
   }
 
-  // Floor on the snowy ground — he never falls off screen
+  // Floor on the snowy ground - he never falls off screen
   if (playerY + P_H >= window.innerHeight - SNOW_GROUND) {
     playerY = window.innerHeight - SNOW_GROUND - P_H;
     if (velocityY > 0) velocityY = 0;
@@ -997,7 +1054,7 @@ function runGameLoop() {
 }
 
 // ========================================
-// PIXEL SNOW — retro chunky snowflakes drifting behind the whole page
+// PIXEL SNOW - retro chunky snowflakes drifting behind the whole page
 // ========================================
 
 (function initPixelSnow() {
@@ -1225,7 +1282,7 @@ function runGameLoop() {
     });
   }
 
-  // Aurora borealis — shimmers across the sky after clearing the hunt
+  // Aurora borealis - shimmers across the sky after clearing the hunt
   let auroraStart = -1;
   const AURORA_MS = 26000;
   window.startAurora = () => { auroraStart = performance.now(); };
@@ -1252,7 +1309,7 @@ function runGameLoop() {
     }
   }
 
-  // Pixel fireworks over the hills — launched when the snowflake hunt is cleared
+  // Pixel fireworks over the hills - launched when the snowflake hunt is cleared
   const fireworks = [];
   const FW_COLORS = ['#9fdcff', '#ffd28a', '#ffffff', '#ff9fb2', '#00bfff'];
 
@@ -1373,7 +1430,7 @@ function runGameLoop() {
 })();
 
 // ========================================
-// TEXT TYPE — typewriter effect on the hero tagline
+// TEXT TYPE - typewriter effect on the hero tagline
 // ========================================
 
 (function initTextType() {
@@ -1427,7 +1484,7 @@ function runGameLoop() {
 })();
 
 // ========================================
-// DOT GRID — inside each experience card, dots light up near the cursor
+// DOT GRID - inside each experience card, dots light up near the cursor
 // ========================================
 
 (function initDotGrid() {
@@ -1499,7 +1556,7 @@ function runGameLoop() {
 })();
 
 // ========================================
-// LOGO LOOP — duplicate the logo set so the marquee loops seamlessly
+// LOGO LOOP - duplicate the logo set so the marquee loops seamlessly
 // ========================================
 
 (function initLogoLoop() {
@@ -1512,7 +1569,7 @@ function runGameLoop() {
 })();
 
 // ========================================
-// CURSOR FX — pixel wind trail behind the mouse + click sparks
+// CURSOR FX - pixel wind trail behind the mouse + click sparks
 // ========================================
 
 (function initCursorFX() {
