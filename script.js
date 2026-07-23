@@ -310,7 +310,9 @@ document.querySelectorAll('.project-card').forEach(card => {
   const title = (card.querySelector('.project-title')?.textContent || 'project')
     .trim().toLowerCase().replace(/\s+/g, '-');
   card.querySelectorAll('.project-links a').forEach(a => {
-    const kind = a.href.includes('devpost') ? 'devpost' : 'github';
+    const kind = a.href.includes('devpost') ? 'devpost'
+      : a.href.includes('github.com') ? 'github'
+      : 'demo';
     a.addEventListener('click', () => trackEvent(`${kind}-${title}`));
   });
 });
@@ -361,18 +363,73 @@ document.querySelectorAll('.project-card').forEach(card => {
 })();
 
 // ========================================
-// PROJECT CARDS - whole card opens the project's GitHub repo
+// EMBEDDED DEMO LIGHTBOX - open demos in an iframe modal, in-page
+// ========================================
+
+(function initEmbedModal() {
+  const modal = document.getElementById('embed-modal');
+  if (!modal) return;
+  const wrap = modal.querySelector('.embed-frame-wrap');
+  const titleEl = modal.querySelector('.embed-title');
+  const openLink = modal.querySelector('.embed-open');
+
+  function openEmbed(url, title) {
+    titleEl.textContent = title || 'Live demo';
+    openLink.href = url;
+    // build the iframe only when opened so the demo isn't running in the background
+    wrap.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.setAttribute('allow', 'clipboard-write; fullscreen');
+    wrap.appendChild(iframe);
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // freeze page scroll behind the modal
+  }
+
+  function closeEmbed() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    wrap.innerHTML = ''; // tear down the iframe so the demo stops
+    document.body.style.overflow = '';
+  }
+
+  window.openEmbed = openEmbed; // let the card-click handler reuse it
+
+  document.querySelectorAll('[data-embed]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      openEmbed(a.href, a.getAttribute('data-embed'));
+    });
+  });
+
+  modal.querySelector('.embed-close').addEventListener('click', closeEmbed);
+  modal.querySelector('.embed-backdrop').addEventListener('click', closeEmbed);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeEmbed();
+  });
+})();
+
+// ========================================
+// PROJECT CARDS - whole card opens its primary link (demo in a modal, else new tab)
 // ========================================
 
 document.querySelectorAll('.project-card').forEach(card => {
   const link = card.querySelector('.project-links a');
   if (!link) return;
   card.addEventListener('click', (e) => {
-    if (e.target.closest('a')) return; // let the inner icon link work normally
+    if (e.target.closest('a')) return; // let the inner icon links work normally
     const title = (card.querySelector('.project-title')?.textContent || 'project')
       .trim().toLowerCase().replace(/\s+/g, '-');
-    trackEvent(`${link.href.includes('devpost') ? 'devpost' : 'github'}-${title}`);
-    window.open(link.href, '_blank', 'noopener');
+    const kind = link.href.includes('devpost') ? 'devpost'
+      : link.href.includes('github.com') ? 'github'
+      : 'demo';
+    trackEvent(`${kind}-${title}`);
+    if (link.hasAttribute('data-embed') && window.openEmbed) {
+      window.openEmbed(link.href, link.getAttribute('data-embed'));
+    } else {
+      window.open(link.href, '_blank', 'noopener');
+    }
   });
 });
 

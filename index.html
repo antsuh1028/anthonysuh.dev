@@ -435,6 +435,28 @@
               </div>
               <div class="project-links">
                 <a
+                  href="./demo/index.html"
+                  target="_blank"
+                  data-embed="PocketZot — live demo"
+                  aria-label="Live Demo"
+                  title="Try the live demo"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+                <a
                   href="https://devpost.com/software/pocketzot"
                   target="_blank"
                   aria-label="Devpost"
@@ -508,6 +530,28 @@
                 </svg>
               </div>
               <div class="project-links">
+                <a
+                  href="https://dinesafe-mocha.vercel.app/"
+                  target="_blank"
+                  data-embed="DineSafe — live site"
+                  aria-label="Live Site"
+                  title="Visit the live site"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
                 <a
                   href="https://github.com/Geoffrey0953/Web-Jam-Hackathon"
                   target="_blank"
@@ -793,6 +837,19 @@
       </div>
       <p class="footer-credit">Built by Anthony Suh</p>
     </footer>
+
+    <!-- Embedded demo lightbox -->
+    <div id="embed-modal" class="embed-modal" aria-hidden="true">
+      <div class="embed-backdrop"></div>
+      <div class="embed-dialog" role="dialog" aria-modal="true" aria-label="Live demo">
+        <div class="embed-bar">
+          <span class="embed-title"></span>
+          <a class="embed-open" href="#" target="_blank" rel="noopener">Open in new tab</a>
+          <button class="embed-close" aria-label="Close demo">&times;</button>
+        </div>
+        <div class="embed-frame-wrap"></div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
     <!-- WebGL circular gallery (currently unused)

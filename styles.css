@@ -1733,6 +1733,120 @@ ul {
   animation-delay: -0.2s;
 }
 
+/* ========================================
+   EMBEDDED DEMO LIGHTBOX
+   ======================================== */
+
+.embed-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10005;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 3vh 3vw;
+}
+
+.embed-modal.open {
+  display: flex;
+}
+
+.embed-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 10, 20, 0.78);
+  backdrop-filter: blur(4px);
+  animation: embed-fade 0.2s ease;
+}
+
+.embed-dialog {
+  position: relative;
+  width: min(1100px, 100%);
+  height: min(90vh, 900px);
+  display: flex;
+  flex-direction: column;
+  background: #0a192f;
+  border: 1px solid var(--border, #233554);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: embed-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.embed-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px 8px 16px;
+  background: #112240;
+  border-bottom: 1px solid var(--border, #233554);
+}
+
+.embed-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  color: #e6f1ff;
+  margin-right: auto;
+}
+
+.embed-open {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: #00bfff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #00bfff;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.embed-open:hover {
+  background: rgba(0, 191, 255, 0.12);
+}
+
+.embed-close {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  color: #8892b0;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.embed-close:hover {
+  color: #e6f1ff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.embed-frame-wrap {
+  flex: 1;
+  background: #f7f7f7;
+}
+
+.embed-frame-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@keyframes embed-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes embed-pop {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 #copy-toast {
   position: fixed;
   bottom: 84px;

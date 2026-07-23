@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PocketZot — live demo</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1a1a1a;
+      background: radial-gradient(1200px 600px at 70% -10%, #eafaf0 0%, #f7f7f7 55%, #f2f2f2 100%);
+      min-height: 100vh;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #f2f2f2; background: radial-gradient(1200px 600px at 70% -10%, #12261b 0%, #161618 55%, #111 100%); }
+      .hero-sub { color: #aaa !important; }
+      .foot { color: #888 !important; }
+      .card { background: #1c1c1e !important; border-color: #333 !important; }
+    }
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 24px 24px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 46px; margin: 0 0 12px; letter-spacing: -1px; }
+    .hero-sub { font-size: 18px; color: #555; max-width: 560px; margin: 0 auto 28px; line-height: 1.55; }
+    .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
+    .badge { font-size: 12px; background: rgba(0,0,0,.06); border-radius: 20px; padding: 5px 12px; }
+    @media (prefers-color-scheme: dark) { .badge { background: rgba(255,255,255,.08); } }
+    .stage {
+      max-width: 900px; margin: 24px auto; padding: 0 24px;
+      display: flex; justify-content: center;
+    }
+    .foot { text-align: center; font-size: 13px; color: #999; padding: 40px 24px 80px; }
+    .foot a { color: inherit; }
+    #pocketzot-demo { display: flex; justify-content: center; }
+
+    /* Tabs */
+    .tabs {
+      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      display: flex; gap: 8px; justify-content: center;
+    }
+    .tab-btn {
+      font: inherit; font-size: 14px; font-weight: 600;
+      padding: 9px 18px; border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.12); background: transparent;
+      color: #555; cursor: pointer; transition: all .18s ease;
+    }
+    .tab-btn:hover { border-color: #1fae5a; color: #1fae5a; }
+    .tab-btn.active { background: #1fae5a; border-color: #1fae5a; color: #fff; }
+    @media (prefers-color-scheme: dark) {
+      .tab-btn { border-color: rgba(255,255,255,.16); color: #bbb; }
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* How it's trained */
+    .train { max-width: 760px; margin: 12px auto 0; padding: 0 24px; }
+    .train h2 { font-size: 26px; margin: 8px 0 10px; letter-spacing: -.5px; }
+    .train-lead { font-size: 16px; line-height: 1.6; color: #555; margin: 0 0 26px; }
+    @media (prefers-color-scheme: dark) { .train-lead { color: #aaa; } }
+
+    .bloom { display: flex; flex-direction: column; gap: 6px; margin-bottom: 30px; }
+    .bloom-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 16px; border-radius: 10px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(0,0,0,.02);
+    }
+    @media (prefers-color-scheme: dark) {
+      .bloom-row { border-color: rgba(255,255,255,.08); background: rgba(255,255,255,.03); }
+    }
+    .bloom-level { font-weight: 700; font-size: 15px; width: 108px; flex-shrink: 0; }
+    .bloom-eg { font-size: 13.5px; color: #666; flex: 1; }
+    @media (prefers-color-scheme: dark) { .bloom-eg { color: #999; } }
+    .bloom-tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+      padding: 3px 9px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+    }
+    .bloom-row.learn { border-left: 4px solid #1fae5a; }
+    .bloom-row.learn .bloom-tag { background: rgba(31,174,90,.15); color: #1a8f4a; }
+    .bloom-row.mixed { border-left: 4px solid #e0a021; }
+    .bloom-row.mixed .bloom-tag { background: rgba(224,160,33,.15); color: #b37d10; }
+    .bloom-row.offload { border-left: 4px solid #d9534f; }
+    .bloom-row.offload .bloom-tag { background: rgba(217,83,79,.15); color: #c33; }
+
+    .pipeline { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+    .pipeline li {
+      position: relative; padding: 0 0 18px 44px; font-size: 15px; line-height: 1.5;
+      color: #444; border-left: 2px solid rgba(0,0,0,.1); margin-left: 15px;
+    }
+    .pipeline li:last-child { border-left-color: transparent; padding-bottom: 0; }
+    @media (prefers-color-scheme: dark) { .pipeline li { color: #bbb; border-left-color: rgba(255,255,255,.12); } }
+    .pipeline li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: -15px; top: -2px;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #1fae5a; color: #fff; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pipeline strong { color: inherit; }
+  </style>
+
+  <!-- Where the built assets live, relative to THIS page. From /demo/, dist/ is at ../dist/, so base = "../". -->
+  <script>
+    window.PocketZotConfig = {
+      base: "../",
+      autoSpawn: true,
+      mount: "#pocketzot-demo"
+    };
+  </script>
+</head>
+<body>
+  <section class="hero">
+    <div class="badges">
+      <span class="badge">Chrome Extension · MV3</span>
+      <span class="badge">React + Vite</span>
+      <span class="badge">FastAPI</span>
+      <span class="badge">Fine-tuned LLM</span>
+    </div>
+    <h1>PocketZot 🐜</h1>
+    <p class="hero-sub">
+      A desktop-mascot Chrome extension that lives on AI chat sites, coaches you toward
+      <em>learning-oriented</em> prompts, and rewards good habits with ants you spend on hats.
+      This page is a live, no-install demo of the mascot &amp; prompt coach.
+    </p>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="try" role="tab">Try it</button>
+    <button class="tab-btn" data-tab="train" role="tab">How it's trained</button>
+  </div>
+
+  <section class="stage tab-panel active" id="tab-try">
+    <div id="pocketzot-demo"></div>
+  </section>
+
+  <!-- NOTE: reflects PocketZot's fine-tuning framed around Bloom's Taxonomy.
+       Adjust the pipeline specifics (dataset size, base model) to match the real project. -->
+  <section class="tab-panel" id="tab-train">
+    <div class="train">
+      <h2>How PocketZot is trained</h2>
+      <p class="train-lead">
+        PocketZot judges a prompt by where it lands on <strong>Bloom's Taxonomy</strong>, the
+        classic hierarchy of thinking skills. Asking an AI to do your lower-order thinking
+        (recall, summarize) skews toward <em>offloading</em>; keeping the higher-order thinking
+        yourself (analyze, evaluate, create) is <em>learning-oriented</em>. The model is
+        fine-tuned to spot the difference.
+      </p>
+
+      <div class="bloom">
+        <div class="bloom-row learn">
+          <span class="bloom-level">Create</span>
+          <span class="bloom-eg">"Help me design my own approach to..."</span>
+          <span class="bloom-tag">learning</span>
+        </div>
+        <div class="bloom-row learn">
+          <span class="bloom-level">Evaluate</span>
+          <span class="bloom-eg">"Critique my reasoning and where it breaks down"</span>
+          <span class="bloom-tag">learning</span>
+        </div>
+        <div class="bloom-row learn">
+          <span class="bloom-level">Analyze</span>
+          <span class="bloom-eg">"Ask me guiding questions to solve this"</span>
+          <span class="bloom-tag">learning</span>
+        </div>
+        <div class="bloom-row mixed">
+          <span class="bloom-level">Apply</span>
+          <span class="bloom-eg">"Walk me through applying this to a new case"</span>
+          <span class="bloom-tag">mixed</span>
+        </div>
+        <div class="bloom-row offload">
+          <span class="bloom-level">Understand</span>
+          <span class="bloom-eg">"Summarize this chapter for me"</span>
+          <span class="bloom-tag">offload-prone</span>
+        </div>
+        <div class="bloom-row offload">
+          <span class="bloom-level">Remember</span>
+          <span class="bloom-eg">"Just give me the answer to..."</span>
+          <span class="bloom-tag">offload-prone</span>
+        </div>
+      </div>
+
+      <ol class="pipeline">
+        <li>
+          <strong>Label against Bloom's levels.</strong> A hand-labeled set of real prompts is
+          tagged with the cognitive level it asks the AI to perform.
+        </li>
+        <li>
+          <strong>Collapse to a learning signal.</strong> Lower-order levels map toward
+          offloading, higher-order levels toward learning, giving each prompt a target label.
+        </li>
+        <li>
+          <strong>Fine-tune GPT-4o mini.</strong> The model learns to predict the level from the
+          prompt alone, in a single fast call, instead of relying on brittle keyword rules.
+        </li>
+        <li>
+          <strong>Serve in real time.</strong> A FastAPI endpoint runs the classifier so the
+          extension can score each prompt as you type it on ChatGPT, Claude, Gemini, and Perplexity.
+        </li>
+        <li>
+          <strong>The anteater reacts.</strong> Higher-order prompts earn ants and cheers; lower-order
+          ones get a gentle nudge to reframe, so the habit loop reinforces real learning.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <p class="foot">
+    The anteater is the real extension engine running unchanged. Classification in this demo is a
+    local offline stand-in for the fine-tuned model used in the full app.
+  </p>
+
+  <!-- Real mascot engine, loaded in dependency order (same as the extension manifest). -->
+  <script src="../dist/anteaterchar/physics.js"></script>
+  <script src="../dist/anteaterchar/stateMachine.js"></script>
+  <script src="../dist/anteaterchar/sprite.js"></script>
+  <script src="../dist/anteaterchar/dragController.js"></script>
+  <script src="../dist/anteaterchar/anteater.js"></script>
+  <!-- Demo glue: getURL shim + canned classifier + control panel. -->
+  <script src="pocketzot-demo.js"></script>
+
+  <!-- Tab switching -->
+  <script>
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var tab = btn.getAttribute('data-tab');
+        document.querySelectorAll('.tab-btn').forEach(function (b) {
+          b.classList.toggle('active', b === btn);
+        });
+        document.querySelectorAll('.tab-panel').forEach(function (p) {
+          p.classList.toggle('active', p.id === 'tab-' + tab);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
