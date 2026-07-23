@@ -1,4 +1,22 @@
 // ========================================
+// SITE MODE - professional (default) vs playground/fun
+// The playground layer (Mii, snow, hunt, cursor FX...) only runs in fun mode.
+// ========================================
+
+const FUN = document.documentElement.dataset.mode === 'fun';
+
+(function initModeToggle() {
+  const btn = document.getElementById('mode-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    try {
+      localStorage.setItem('siteMode', FUN ? 'pro' : 'fun');
+    } catch (e) { /* ignore */ }
+    location.reload(); // reload so every heavy effect starts/stops cleanly
+  });
+})();
+
+// ========================================
 // SCROLL PROGRESS BAR
 // ========================================
 
@@ -438,6 +456,7 @@ document.querySelectorAll('.project-card').forEach(card => {
 // ========================================
 
 (function initDock() {
+  if (!FUN) return; // pro mode: dock still navigates, just no magnify flourish
   const panel = document.querySelector('.dock-panel');
   if (!panel) return;
 
@@ -485,6 +504,7 @@ document.querySelectorAll('.project-card').forEach(card => {
 // ========================================
 
 (function initBounceCards() {
+  // the polaroid fan runs in BOTH modes
   const wrap = document.getElementById('bounce-cards');
   if (!wrap) return;
 
@@ -976,8 +996,8 @@ function spawnMii() {
   runGameLoop();
 }
 
-// The Mii lives on the page from the start
-window.addEventListener('load', spawnMii);
+// The Mii lives on the page from the start (fun mode only)
+if (FUN) window.addEventListener('load', spawnMii);
 
 // ========================================
 // COIN HUNT TOGGLE (the button now controls the game, not the Mii)
@@ -986,37 +1006,41 @@ window.addEventListener('load', spawnMii);
 const spawnBtn = document.getElementById('spawn-character');
 let huntActive = false;
 
-spawnBtn.addEventListener('click', () => {
-  if (huntActive) {
-    huntActive = false;
-    removeCoins();
-    window.snowBoost = false; // calm the blizzard
-    spawnBtn.textContent = 'Snowflake hunt ❄';
-    return;
-  }
+// The whole hunt + keyboard control only exists in fun mode. In pro mode we
+// must NOT attach the keydown handler, or it would swallow arrow/space page scroll.
+if (FUN && spawnBtn) {
+  spawnBtn.addEventListener('click', () => {
+    if (huntActive) {
+      huntActive = false;
+      removeCoins();
+      window.snowBoost = false; // calm the blizzard
+      spawnBtn.textContent = 'Snowflake hunt ❄';
+      return;
+    }
 
-  huntActive = true;
-  coinScore = 0;
-  celebrating = false;
-  spawnCoins();
-  createCoinDisplay();
-  window.snowBoost = true; // hunt weather: blizzard!
-  spawnBtn.textContent = 'End the hunt';
-  trackEvent('hunt-start', true);
-});
+    huntActive = true;
+    coinScore = 0;
+    celebrating = false;
+    spawnCoins();
+    createCoinDisplay();
+    window.snowBoost = true; // hunt weather: blizzard!
+    spawnBtn.textContent = 'End the hunt';
+    trackEvent('hunt-start', true);
+  });
 
-window.addEventListener('keydown', (e) => {
-  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) e.preventDefault();
-  if ((e.key === 'ArrowUp' || e.key === ' ' || e.key.toLowerCase() === 'w') && jumpCount < MAX_JUMPS && !dragging) {
-    velocityY = -JUMP_FORCE;
-    isOnGround = false;
-    jumpCount++;
-    lastInputTime = performance.now();
-  }
-  keys[e.key] = true;
-});
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) e.preventDefault();
+    if ((e.key === 'ArrowUp' || e.key === ' ' || e.key.toLowerCase() === 'w') && jumpCount < MAX_JUMPS && !dragging) {
+      velocityY = -JUMP_FORCE;
+      isOnGround = false;
+      jumpCount++;
+      lastInputTime = performance.now();
+    }
+    keys[e.key] = true;
+  });
 
-window.addEventListener('keyup', (e) => keys[e.key] = false);
+  window.addEventListener('keyup', (e) => keys[e.key] = false);
+}
 
 function runGameLoop() {
   if (!player) return;
@@ -1160,6 +1184,7 @@ function runGameLoop() {
 // ========================================
 
 (function initPixelSnow() {
+  if (!FUN) return; // snow, moon, clouds, hills, cabin, aurora, fireworks
   const canvas = document.createElement('canvas');
   canvas.id = 'pixel-snow';
   document.body.appendChild(canvas);
@@ -1536,6 +1561,7 @@ function runGameLoop() {
 // ========================================
 
 (function initTextType() {
+  if (!FUN) return; // pro keeps the static professional tagline from the HTML
   const el = document.querySelector('.hero-tagline');
   if (!el) return;
 
@@ -1590,6 +1616,7 @@ function runGameLoop() {
 // ========================================
 
 (function initDotGrid() {
+  if (!FUN) return; // pro mode: clean cards, no reactive dot grid
   const cards = Array.from(document.querySelectorAll('.experience-item, .project-card'));
   if (!cards.length) return;
 
@@ -1675,6 +1702,7 @@ function runGameLoop() {
 // ========================================
 
 (function initCursorFX() {
+  if (!FUN) return; // pro mode: no pixel wind trail or click sparks
   const canvas = document.createElement('canvas');
   canvas.id = 'cursor-fx';
   document.body.appendChild(canvas);

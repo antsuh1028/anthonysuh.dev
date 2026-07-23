@@ -12,10 +12,31 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap"
       rel="stylesheet"
     />
+    <!-- Set the mode before paint so there is no flash. Default: professional. -->
+    <script>
+      (function () {
+        try {
+          var m = localStorage.getItem('siteMode');
+          document.documentElement.dataset.mode = m === 'fun' ? 'fun' : 'pro';
+        } catch (e) {
+          document.documentElement.dataset.mode = 'pro';
+        }
+      })();
+    </script>
   </head>
   <body>
+    <!-- Professional-mode ambient background (grid + aurora glow + grain) -->
+    <div id="pro-bg" aria-hidden="true"></div>
+
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress"></div>
+
+    <!-- Professional / Playground mode toggle -->
+    <button id="mode-toggle" aria-label="Switch between professional and playground modes">
+      <span class="mode-dot"></span>
+      <span data-pro>Playground ❄</span>
+      <span data-fun>Professional</span>
+    </button>
 
     <!-- OLD navigation - replaced by the dock below
     <nav class="nav">

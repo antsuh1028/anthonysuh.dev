@@ -2055,3 +2055,131 @@ ul {
   from { transform: translateY(60px) scale(0.4); opacity: 0; }
   to   { transform: translateY(0) scale(1); opacity: 1; }
 }
+/* ========================================
+   MODE TOGGLE + PROFESSIONAL / PLAYGROUND THEMING
+   ======================================== */
+
+#mode-toggle {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  z-index: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  background: rgba(22, 27, 34, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+#mode-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.mode-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+html[data-mode="pro"] #mode-toggle [data-fun] { display: none; }
+html[data-mode="fun"] #mode-toggle [data-pro] { display: none; }
+
+/* The polaroid photo fan stays in both modes. */
+
+/* Professional mode: hide the whole playground layer */
+html[data-mode="pro"] #pixel-snow,
+html[data-mode="pro"] #cursor-fx,
+html[data-mode="pro"] #mii-sign,
+html[data-mode="pro"] .spawn-btn,
+html[data-mode="pro"] #coin-display,
+html[data-mode="pro"] .player,
+html[data-mode="pro"] .snowman,
+html[data-mode="pro"] .dot-grid-canvas {
+  display: none !important;
+}
+
+/* Professional mode: deepen + neutralize the palette a touch */
+html[data-mode="pro"] {
+  --bg-primary: #0a0c10;
+  --bg-secondary: #0f1319;
+  --bg-card: #12161d;
+  background-color: #0a0c10; /* base color painted behind the ambient layer */
+}
+
+/* Professional ambient background: dot grid + aurora glow + film grain.
+   Body goes transparent so the fixed #pro-bg layer shows through. */
+#pro-bg { display: none; }
+
+html[data-mode="pro"] body { background-color: transparent; }
+
+html[data-mode="pro"] #pro-bg {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* faint technical grid (graph-paper lines) */
+  background-image:
+    linear-gradient(to right, rgba(120, 150, 200, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 150, 200, 0.05) 1px, transparent 1px);
+  background-size: 34px 34px;
+  /* fade the grid out toward the bottom so it never fights the content */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
+}
+
+/* aurora glow */
+html[data-mode="pro"] #pro-bg::before {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(600px 420px at 16% 8%, rgba(88, 166, 255, 0.10), transparent 60%),
+    radial-gradient(520px 520px at 88% 26%, rgba(126, 96, 255, 0.09), transparent 62%),
+    radial-gradient(480px 360px at 60% 85%, rgba(45, 120, 200, 0.06), transparent 60%);
+  filter: blur(24px);
+  animation: pro-aurora 22s ease-in-out infinite alternate;
+}
+
+/* film grain */
+html[data-mode="pro"] #pro-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+@keyframes pro-aurora {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2%, 1.5%, 0) scale(1.05); }
+  100% { transform: translate3d(-1.5%, 1%, 0) scale(1.02); }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
